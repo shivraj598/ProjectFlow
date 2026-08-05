@@ -1,0 +1,27 @@
+{
+  "name": "projectflow",
+  "private": true,
+  "version": "0.1.0",
+  "description": "ProjectFlow - a Jira/Linear-style project management platform",
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"pnpm --filter @projectflow/api dev\" \"pnpm --filter @projectflow/web dev\"",
+    "dev:api": "pnpm --filter @projectflow/api dev",
+    "dev:web": "pnpm --filter @projectflow/web dev",
+    "build": "pnpm --filter @projectflow/api build && pnpm --filter @projectflow/web build",
+    "db:push": "pnpm --filter @projectflow/api db:push",
+    "db:seed": "pnpm --filter @projectflow/api db:seed",
+    "setup": "pnpm install && pnpm --filter @projectflow/api db:push && pnpm --filter @projectflow/api db:seed"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma",
+      "esbuild",
+      "bcryptjs"
+    ]
+  }
+}
