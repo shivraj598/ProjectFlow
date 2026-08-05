@@ -7,6 +7,7 @@ import { AppError } from "../lib/errors.js";
 export interface AuthedRequest extends Request {
   user: User;
   orgRole?: Role;
+  params: { [key: string]: string };
 }
 
 export function loadUser(req: AuthedRequest, _res: Response, next: NextFunction) {
@@ -43,21 +44,21 @@ export async function getOrgRole(userId: string, orgId: string): Promise<Role | 
 }
 
 export function requireOrgMember(orgIdParam = "orgId"): RequestHandler {
-  return async (req: AuthedRequest, _res, next) => {
+  return (async (req: AuthedRequest, _res, next) => {
     const orgId = req.params[orgIdParam];
     if (!orgId) throw new AppError(400, "Organization id is required");
     const role = await getOrgRole(req.user.id, orgId);
     if (!role) throw new AppError(403, "You are not a member of this organization");
     req.orgRole = role;
     next();
-  };
+  }) as RequestHandler;
 }
 
 export function requireOrgRole(roles: Role[]): RequestHandler {
-  return (req: AuthedRequest, _res, next) => {
+  return ((req: AuthedRequest, _res, next) => {
     if (!req.orgRole || !roles.includes(req.orgRole)) {
       throw new AppError(403, "You do not have permission to perform this action");
     }
     next();
-  };
+  }) as RequestHandler;
 }

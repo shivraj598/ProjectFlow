@@ -7,6 +7,7 @@ import { errorHandler, notFoundHandler } from "./lib/errors.js";
 import { authRouter } from "./routes/auth.js";
 import { orgsRouter } from "./routes/orgs.js";
 import { workspacesRouter } from "./routes/workspaces.js";
+import { workspaceItemRouter } from "./routes/workspace-item.js";
 import { projectsRouter } from "./routes/projects.js";
 import { projectItemRouter } from "./routes/project-item.js";
 import { taskItemRouter } from "./routes/tasks.js";
@@ -24,12 +25,13 @@ app.get("/api/health", (_req, res) => res.json({ ok: true, service: "projectflow
 
 app.use("/api/auth", authRouter);
 app.use("/api/orgs", orgsRouter);
-app.use("/api", workspacesRouter); // /api/:orgId/workspaces, /api/workspaces/:id
-app.use("/api", projectsRouter); // /api/:orgId/projects
-app.use("/api/projects", projectItemRouter); // /api/projects/:projectId (+ columns, tasks, reorder)
+app.use("/api/orgs", workspacesRouter); // /api/orgs/:orgId/workspaces
+app.use("/api/workspaces", workspaceItemRouter); // /api/workspaces/:id
+app.use("/api/orgs", projectsRouter); // /api/orgs/:orgId/projects
+app.use("/api/projects", projectItemRouter); // /api/projects/:projectId + columns + tasks + reorder
 app.use("/api/tasks", taskItemRouter); // /api/tasks/:id
 app.use("/api/tasks", commentsRouter); // /api/tasks/:taskId/comments, /api/tasks/comments/:id
-app.use("/api", dashboardRouter); // /api/:orgId/dashboard
+app.use("/api/orgs", dashboardRouter); // /api/orgs/:orgId/dashboard
 
 app.use(notFoundHandler);
 app.use(errorHandler);

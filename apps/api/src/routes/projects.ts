@@ -29,7 +29,7 @@ const projectSchema = z.object({
 router.get(
   "/:orgId/projects",
   requireOrgMember(),
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req: AuthedRequest, res) => {
     const projects = await prisma.project.findMany({
       where: { orgId: req.params.orgId },
       include: {

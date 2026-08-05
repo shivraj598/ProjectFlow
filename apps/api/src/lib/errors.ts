@@ -8,11 +8,11 @@ export class AppError extends Error {
   }
 }
 
-type AsyncHandler = (req: Request, res: Response, next: NextFunction) => Promise<unknown>;
+type AsyncHandler<TReq extends Request = Request> = (req: TReq, res: Response, next: NextFunction) => Promise<unknown>;
 
-export function asyncHandler(fn: AsyncHandler): RequestHandler {
+export function asyncHandler<TReq extends Request = Request>(fn: AsyncHandler<TReq>): RequestHandler {
   return (req, res, next) => {
-    fn(req, res, next).catch(next);
+    fn(req as TReq, res, next).catch(next);
   };
 }
 

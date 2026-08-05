@@ -17,4 +17,17 @@ export default defineConfig({
       "/socket.io": { target: "http://localhost:4000", ws: true },
     },
   },
+  build: {
+    chunkSizeWarningLimit: 700,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor-react": ["react", "react-dom", "react-router"],
+          "vendor-charts": ["recharts"],
+          "vendor-dnd": ["@dnd-kit/core", "@dnd-kit/sortable", "@dnd-kit/utilities"],
+          "vendor-query": ["@tanstack/react-query", "zustand"],
+        },
+      },
+    },
+  },
 });
