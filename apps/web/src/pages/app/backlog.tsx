@@ -70,7 +70,7 @@ export function BacklogPage({ projectId }: { projectId: string }) {
   const sprints = useMemo(() => (sprintData?.sprints ?? []).filter((s) => s.status !== "CANCELLED"), [sprintData]);
 
   const allTasks = useMemo(
-    () => (boardData?.project.columns ?? []).flatMap((c) => c.tasks).map((t) => ({ ...t, projectKey: boardData.project.key })),
+    () => (boardData?.project.columns ?? []).flatMap((c) => c.tasks).map((t) => ({ ...t, projectKey: boardData?.project.key ?? "TASK" })),
     [boardData]
   );
 
