@@ -6,6 +6,8 @@ import { RegisterPage } from "@/pages/register";
 import { DashboardPage } from "@/pages/app/dashboard";
 import { ProjectsPage } from "@/pages/app/projects";
 import { BoardPage } from "@/pages/app/board";
+import { SprintsPage } from "@/pages/app/sprints";
+import { SprintDetailPage } from "@/pages/app/sprint-detail";
 import { PeoplePage } from "@/pages/app/people";
 import { SettingsPage } from "@/pages/app/settings";
 
@@ -21,6 +23,8 @@ export function App() {
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="projects" element={<ProjectsPage />} />
         <Route path="projects/:projectId" element={<BoardRoute />} />
+        <Route path="projects/:projectId/sprints" element={<SprintsRoute />} />
+        <Route path="projects/:projectId/sprints/:sprintId" element={<SprintDetailRoute />} />
         <Route path="people" element={<PeoplePage />} />
         <Route path="settings" element={<SettingsPage />} />
       </Route>
@@ -33,4 +37,14 @@ export function App() {
 function BoardRoute() {
   const { projectId } = useParams();
   return <BoardPage projectId={projectId ?? ""} />;
+}
+
+function SprintsRoute() {
+  const { projectId } = useParams();
+  return <SprintsPage projectId={projectId ?? ""} />;
+}
+
+function SprintDetailRoute() {
+  const { projectId, sprintId } = useParams();
+  return <SprintDetailPage projectId={projectId ?? ""} sprintId={sprintId ?? ""} />;
 }
