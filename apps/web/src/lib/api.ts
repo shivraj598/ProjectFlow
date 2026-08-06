@@ -1,4 +1,5 @@
 import { useAuthStore } from "@/stores/auth-store";
+import type { Sprint, SprintBurndown, SprintMember } from "@/lib/types";
 
 let refreshPromise: Promise<string> | null = null;
 
@@ -73,3 +74,22 @@ export const patch = <T>(path: string, body?: unknown) =>
   api<T>(path, { method: "PATCH", body: body ? JSON.stringify(body) : undefined });
 
 export const del = <T>(path: string) => api<T>(path, { method: "DELETE" });
+
+// Sprint API
+export const sprintApi = {
+  list: (projectId: string) => api<{ sprints: Sprint[] }>(`/api/projects/${projectId}/sprints`),
+  create: (projectId: string, data: Partial<Sprint>) => post<{ sprint: Sprint }>(`/api/projects/${projectId}/sprints`, data),
+  update: (projectId: string, sprintId: string, data: Partial<Sprint>) =>
+    patch<{ sprint: Sprint }>(`/api/projects/${projectId}/sprints/${sprintId}`, data),
+  delete: (projectId: string, sprintId: string) => del(`/api/projects/${projectId}/sprints/${sprintId}`),
+  addTasks: (projectId: string, sprintId: string, taskIds: string[]) =>
+    post<{ ok: true }>(`/api/projects/${projectId}/sprints/${sprintId}/tasks`, { taskIds }),
+  removeTask: (projectId: string, sprintId: string, taskId: string) =>
+    del<{ ok: true }>(`/api/projects/${projectId}/sprints/${sprintId}/tasks/${taskId}`),
+  addMembers: (projectId: string, sprintId: string, userIds: string[]) =>
+    post<{ members: SprintMember[] }>(`/api/projects/${projectId}/sprints/${sprintId}/members`, { userIds }),
+  removeMember: (projectId: string, sprintId: string, userId: string) =>
+    del<{ members: SprintMember[] }>(`/api/projects/${projectId}/sprints/${sprintId}/members/${userId}`),
+  getBurndown: (projectId: string, sprintId: string) =>
+    api<SprintBurndown>(`/api/projects/${projectId}/sprints/${sprintId}/burndown`),
+};
