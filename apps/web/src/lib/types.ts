@@ -1,4 +1,4 @@
-import type { Priority, Role, TaskType } from "@/lib/constants";
+import type { Priority, Role, TaskType, SprintStatus } from "@/lib/constants";
 
 export interface OrgSummary {
   id: string;
@@ -51,6 +51,7 @@ export interface ProjectSummary {
 export interface Task {
   id: string;
   projectId: string;
+  sprintId: string | null;
   columnId: string | null;
   title: string;
   description: string | null;
@@ -104,6 +105,44 @@ export interface BoardData {
     user: { id: string; name: string; avatarUrl: string | null; email: string };
   }[];
   myRole: Role;
+}
+
+export interface SprintMember {
+  id: string;
+  sprintId: string;
+  userId: string;
+  createdAt: string;
+  user: { id: string; name: string; avatarUrl: string | null; email: string };
+}
+
+export interface Sprint {
+  id: string;
+  projectId: string;
+  name: string;
+  goal: string | null;
+  startDate: string | null;
+  endDate: string | null;
+  status: SprintStatus;
+  createdAt: string;
+  updatedAt: string;
+  completedAt: string | null;
+  members: SprintMember[];
+  _count: { tasks: number };
+  totalStoryPoints: number;
+  completedStoryPoints: number;
+  tasks?: {
+    id: string;
+    storyPoints: number | null;
+    completedAt: string | null;
+    column: { name: string } | null;
+  }[];
+}
+
+export interface SprintBurndown {
+  burndown: { date: string; ideal: number; actual: number }[];
+  totalPoints: number;
+  sprintStart: string;
+  sprintEnd: string;
 }
 
 export interface Comment {
