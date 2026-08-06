@@ -14,7 +14,7 @@ import {
 import { api, post, sprintApi } from "@/lib/api";
 import { useAuthStore } from "@/stores/auth-store";
 import { useSocket } from "@/hooks/use-socket";
-import type { BoardData, Task } from "@/lib/types";
+import type { BacklogData, Task } from "@/lib/types";
 import { PRIORITIES, PRIORITY_META, TASK_TYPES, TYPE_META, type Priority, type TaskType } from "@/lib/constants";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UserAvatar } from "@/components/shared/user-avatar";
@@ -41,6 +41,7 @@ export function BacklogPage({ projectId }: { projectId: string }) {
 
   const invalidate = () => {
     queryClient.invalidateQueries({ queryKey: ["board", projectId] });
+    queryClient.invalidateQueries({ queryKey: ["backlog", projectId] });
     queryClient.invalidateQueries({ queryKey: ["sprints", projectId] });
     queryClient.invalidateQueries({ queryKey: ["dashboard", currentOrgId] });
   };
@@ -55,26 +56,15 @@ export function BacklogPage({ projectId }: { projectId: string }) {
     () => invalidate()
   );
 
-  const { data: boardData } = useQuery({
-    queryKey: ["board", projectId],
-    queryFn: () => api<BoardData>(`/api/projects/${projectId}`),
+  const { data: backlogData } = useQuery({
+    queryKey: ["backlog", projectId],
+    queryFn: () => api<BacklogData>(`/api/projects/${projectId}/backlog`),
     enabled: !!projectId,
   });
 
-  const { data: sprintData } = useQuery({
-    queryKey: ["sprints", projectId],
-    queryFn: () => sprintApi.list(projectId),
-    enabled: !!projectId,
-  });
+  const sprints = useMemo(() => backlogData?.sprints ?? [], [backlogData]);
 
-  const sprints = useMemo(() => (sprintData?.sprints ?? []).filter((s) => s.status !== "CANCELLED"), [sprintData]);
-
-  const allTasks = useMemo(
-    () => (boardData?.project.columns ?? []).flatMap((c) => c.tasks).map((t) => ({ ...t, projectKey: boardData?.project.key ?? "TASK" })),
-    [boardData]
-  );
-
-  const backlog = useMemo(() => allTasks.filter((t) => !t.sprintId), [allTasks]);
+  const backlog = useMemo(() => backlogData?.tasks ?? [], [backlogData]);
 
   const filtered = useMemo(() => {
     const q = filters.search.trim().toLowerCase();
@@ -131,7 +121,7 @@ export function BacklogPage({ projectId }: { projectId: string }) {
     });
   };
 
-  const canEdit = boardData?.myRole !== "MEMBER";
+  const canEdit = backlogData?.myRole !== "MEMBER";
   const hasActiveFilters = filters.search !== "" || filters.type !== "ALL" || filters.priority !== "ALL" || filters.assignee !== "ALL";
   const totalPoints = backlog.reduce((sum, t) => sum + (t.storyPoints ?? 0), 0);
 
@@ -142,7 +132,7 @@ export function BacklogPage({ projectId }: { projectId: string }) {
         <div className="flex items-center gap-1 text-[13px] text-muted-foreground">
           <Link to="/app/projects" className="hover:text-foreground">Projects</Link>
           <ChevronRight className="size-3" />
-          <Link to={`/app/projects/${projectId}`} className="hover:text-foreground">{boardData?.project.name ?? "Project"}</Link>
+          <Link to={`/app/projects/${projectId}`} className="hover:text-foreground">{backlogData?.project.name ?? "Project"}</Link>
           <ChevronRight className="size-3" />
           <span className="text-foreground">Backlog</span>
         </div>
@@ -212,7 +202,7 @@ export function BacklogPage({ projectId }: { projectId: string }) {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="ALL" className="text-[12px]">Everyone</SelectItem>
-            {(boardData?.members ?? []).map((m) => (
+            {(backlogData?.members ?? []).map((m) => (
               <SelectItem key={m.user.id} value={m.user.id} className="text-[12px]">{m.user.name}</SelectItem>
             ))}
           </SelectContent>
@@ -280,7 +270,7 @@ export function BacklogPage({ projectId }: { projectId: string }) {
           <span className="w-24 text-right">Assignee</span>
         </div>
 
-        {!boardData ? (
+        {!backlogData ? (
           <div className="p-8 text-center">
             <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
           </div>
@@ -340,11 +330,11 @@ export function BacklogPage({ projectId }: { projectId: string }) {
         )}
       </div>
 
-      {selectedTaskId && boardData && (
+      {selectedTaskId && backlogData && (
         <TaskSheet
           taskId={selectedTaskId}
-          columns={boardData.project.columns}
-          members={boardData.members}
+          columns={backlogData.columns.map((c) => ({ ...c, tasks: [] }))}
+          members={backlogData.members}
           onOpenChange={(open) => !open && setSelectedTaskId(null)}
         />
       )}

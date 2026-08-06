@@ -107,6 +107,19 @@ export interface BoardData {
   myRole: Role;
 }
 
+export interface BacklogData {
+  project: { id: string; name: string; key: string; color: string; status: string };
+  myRole: Role;
+  columns: { id: string; projectId: string; name: string; position: number; wipLimit: number | null; createdAt: string }[];
+  members: {
+    id: string;
+    role: Role;
+    user: { id: string; name: string; avatarUrl: string | null; email: string };
+  }[];
+  sprints: { id: string; name: string; status: SprintStatus; startDate: string | null; endDate: string | null; _count: { tasks: number } }[];
+  tasks: Task[];
+}
+
 export interface SprintMember {
   id: string;
   sprintId: string;

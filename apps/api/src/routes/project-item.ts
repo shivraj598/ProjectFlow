@@ -61,6 +61,58 @@ router.get(
   })
 );
 
+// Backlog: all tasks not yet scheduled to a sprint (across all columns, incl. columnless)
+router.get(
+  "/:projectId/backlog",
+  asyncHandler(async (req: AuthedRequest, res) => {
+    const project = await prisma.project.findUnique({
+      where: { id: req.params.projectId },
+      select: { id: true, orgId: true, name: true, key: true, color: true, status: true },
+    });
+    if (!project) throw new AppError(404, "Project not found");
+
+    const role = await prisma.organizationMember.findUnique({
+      where: { orgId_userId: { orgId: project.orgId, userId: req.user.id } },
+    });
+    if (!role) throw new AppError(403, "Not a member of this organization");
+
+    const [columns, members, sprints, tasks] = await Promise.all([
+      prisma.column.findMany({
+        where: { projectId: project.id },
+        orderBy: { position: "asc" },
+        select: { id: true, projectId: true, name: true, position: true, wipLimit: true, createdAt: true },
+      }),
+      prisma.organizationMember.findMany({
+        where: { orgId: project.orgId },
+        include: { user: { select: { id: true, name: true, avatarUrl: true, email: true } } },
+      }),
+      prisma.sprint.findMany({
+        where: { projectId: project.id, status: { not: "CANCELLED" } },
+        orderBy: { createdAt: "desc" },
+        select: { id: true, name: true, status: true, startDate: true, endDate: true, _count: { select: { tasks: true } } },
+      }),
+      prisma.task.findMany({
+        where: { projectId: project.id, sprintId: null },
+        orderBy: [{ position: "asc" }, { createdAt: "asc" }],
+        include: {
+          assignee: { select: { id: true, name: true, avatarUrl: true } },
+          reporter: { select: { id: true, name: true, avatarUrl: true } },
+          _count: { select: { comments: true } },
+        },
+      }),
+    ]);
+
+    res.json({
+      project,
+      myRole: role.role,
+      columns,
+      members,
+      sprints,
+      tasks: tasks.map((t) => ({ ...t, projectKey: project.key })),
+    });
+  })
+);
+
 router.patch(
   "/:projectId",
   asyncHandler(async (req: AuthedRequest, res) => {
