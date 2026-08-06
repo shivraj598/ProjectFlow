@@ -4,12 +4,14 @@ import {
   Bug,
   CircleDot,
   Square,
+  Target,
   type LucideIcon,
 } from "lucide-react";
 
 export type Priority = "URGENT" | "HIGH" | "MEDIUM" | "LOW" | "NONE";
 export type TaskType = "EPIC" | "STORY" | "TASK" | "BUG" | "SUBTASK";
 export type Role = "ADMIN" | "MANAGER" | "MEMBER";
+export type SprintStatus = "PLANNED" | "ACTIVE" | "COMPLETED" | "CANCELLED";
 
 export const PRIORITIES: Priority[] = ["URGENT", "HIGH", "MEDIUM", "LOW", "NONE"];
 
@@ -29,6 +31,15 @@ export const TYPE_META: Record<TaskType, { label: string; icon: LucideIcon; colo
   TASK: { label: "Task", icon: Square, color: "text-muted-foreground" },
   BUG: { label: "Bug", icon: Bug, color: "text-rose-500" },
   SUBTASK: { label: "Subtask", icon: CircleDot, color: "text-slate-400" },
+};
+
+export const SPRINT_STATUSES: SprintStatus[] = ["PLANNED", "ACTIVE", "COMPLETED", "CANCELLED"];
+
+export const SPRINT_STATUS_META: Record<SprintStatus, { label: string; dot: string; icon: LucideIcon; color: string }> = {
+  PLANNED: { label: "Planned", dot: "#94a3b8", icon: Target, color: "text-slate-400" },
+  ACTIVE: { label: "Active", dot: "#22c55e", icon: Target, color: "text-emerald-500" },
+  COMPLETED: { label: "Completed", dot: "#5b8cff", icon: Target, color: "text-sky-500" },
+  CANCELLED: { label: "Cancelled", dot: "#f43f5e", icon: Target, color: "text-rose-500" },
 };
 
 export const PROJECT_COLORS = [
