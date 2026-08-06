@@ -41,10 +41,17 @@ export function BoardPage({ projectId }: { projectId: string }) {
               </div>
             </div>
 
-            <div className="ml-auto flex items-center gap-1.5">
+            <div className="ml-auto flex items-center gap-1 rounded-lg border border-border bg-card p-0.5 text-[12px] font-medium">
+              <span className="rounded-md bg-primary px-2.5 py-1.5 text-primary-foreground shadow-sm">Board</span>
+              <Link
+                to={`/app/projects/${projectId}/backlog`}
+                className="rounded-md px-2.5 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Backlog
+              </Link>
               <Link
                 to={`/app/projects/${projectId}/sprints`}
-                className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[12px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-muted-foreground transition-colors hover:text-foreground"
               >
                 <Target className="size-3.5" /> Sprints
               </Link>
