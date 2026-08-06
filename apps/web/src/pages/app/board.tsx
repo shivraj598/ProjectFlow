@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
-import { ChevronRight, FolderKanban, SquareKanban } from "lucide-react";
+import { ChevronRight, FolderKanban, SquareKanban, Target } from "lucide-react";
 import { api } from "@/lib/api";
 import { Board } from "@/components/board/board";
 import { PROJECT_STATUS_META } from "@/lib/constants";
@@ -39,6 +39,15 @@ export function BoardPage({ projectId }: { projectId: string }) {
                 <ChevronRight className="size-3" />
                 <span className="truncate">{project.workspace?.name}</span>
               </div>
+            </div>
+
+            <div className="ml-auto flex items-center gap-1.5">
+              <Link
+                to={`/app/projects/${projectId}/sprints`}
+                className="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-[12px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              >
+                <Target className="size-3.5" /> Sprints
+              </Link>
             </div>
           </>
         ) : (
