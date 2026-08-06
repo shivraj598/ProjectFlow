@@ -13,6 +13,7 @@ import { projectItemRouter } from "./routes/project-item.js";
 import { taskItemRouter } from "./routes/tasks.js";
 import { commentsRouter } from "./routes/comments.js";
 import { dashboardRouter } from "./routes/dashboard.js";
+import { sprintsRouter } from "./routes/sprints.js";
 
 const app = express();
 const port = Number(process.env.PORT ?? 4000);
@@ -29,6 +30,7 @@ app.use("/api/orgs", workspacesRouter); // /api/orgs/:orgId/workspaces
 app.use("/api/workspaces", workspaceItemRouter); // /api/workspaces/:id
 app.use("/api/orgs", projectsRouter); // /api/orgs/:orgId/projects
 app.use("/api/projects", projectItemRouter); // /api/projects/:projectId + columns + tasks + reorder
+app.use("/api/projects", sprintsRouter); // /api/projects/:projectId/sprints
 app.use("/api/tasks", taskItemRouter); // /api/tasks/:id
 app.use("/api/tasks", commentsRouter); // /api/tasks/:taskId/comments, /api/tasks/comments/:id
 app.use("/api/orgs", dashboardRouter); // /api/orgs/:orgId/dashboard
