@@ -151,7 +151,7 @@ export function SprintDetailPage({ projectId, sprintId }: { projectId: string; s
   const sprintTaskIds = new Set((sprint.tasks ?? []).map((t) => t.id));
   const allTasks = (boardData?.project.columns ?? []).flatMap((c) => c.tasks);
   const sprintTasks = allTasks.filter((t) => sprintTaskIds.has(t.id));
-  const backlogTasks = allTasks.filter((t) => !t.sprintId || t.sprintId !== sprintId);
+  const backlogTasks = allTasks.filter((t) => !t.sprintId);
   const memberIds = new Set(sprint.members.map((m) => m.user.id));
 
   const toggleMember = (userId: string) => {

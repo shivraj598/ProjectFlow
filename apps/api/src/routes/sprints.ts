@@ -2,7 +2,7 @@ import { Router } from "express";
 import { z } from "zod";
 import { prisma } from "../lib/prisma.js";
 import { AppError, asyncHandler } from "../lib/errors.js";
-import { requireAuth, requireOrgMember } from "../middleware/auth.js";
+import { requireAuth } from "../middleware/auth.js";
 import type { AuthedRequest } from "../middleware/auth.js";
 import { logActivity } from "../lib/activity.js";
 import { emitToProject, emitToOrg } from "../socket.js";
@@ -34,7 +34,6 @@ const sprintUpdateSchema = sprintCreateSchema.partial().extend({
 
 router.get(
   "/:projectId/sprints",
-  requireOrgMember(),
   asyncHandler(async (req: AuthedRequest, res) => {
     const { project } = await assertProjectAccess(req.params.projectId, req.user.id);
 
@@ -73,7 +72,6 @@ router.get(
 
 router.post(
   "/:projectId/sprints",
-  requireOrgMember(),
   asyncHandler(async (req: AuthedRequest, res) => {
     const { project, role } = await assertProjectAccess(req.params.projectId, req.user.id);
     if (role.role === "MEMBER") throw new AppError(403, "Members cannot create sprints");
@@ -116,7 +114,6 @@ router.post(
 
 router.patch(
   "/:projectId/sprints/:sprintId",
-  requireOrgMember(),
   asyncHandler(async (req: AuthedRequest, res) => {
     const { project, role } = await assertProjectAccess(req.params.projectId, req.user.id);
     if (role.role === "MEMBER") throw new AppError(403, "Members cannot update sprints");
@@ -189,7 +186,6 @@ router.patch(
 
 router.delete(
   "/:projectId/sprints/:sprintId",
-  requireOrgMember(),
   asyncHandler(async (req: AuthedRequest, res) => {
     const { project, role } = await assertProjectAccess(req.params.projectId, req.user.id);
     if (role.role === "MEMBER") throw new AppError(403, "Members cannot delete sprints");
@@ -219,7 +215,6 @@ router.delete(
 
 router.post(
   "/:projectId/sprints/:sprintId/tasks",
-  requireOrgMember(),
   asyncHandler(async (req: AuthedRequest, res) => {
     const { project, role } = await assertProjectAccess(req.params.projectId, req.user.id);
     if (role.role === "MEMBER") throw new AppError(403, "Members cannot modify sprint tasks");
@@ -253,7 +248,6 @@ router.post(
 
 router.delete(
   "/:projectId/sprints/:sprintId/tasks/:taskId",
-  requireOrgMember(),
   asyncHandler(async (req: AuthedRequest, res) => {
     const { project, role } = await assertProjectAccess(req.params.projectId, req.user.id);
     if (role.role === "MEMBER") throw new AppError(403, "Members cannot modify sprint tasks");
@@ -285,7 +279,6 @@ router.delete(
 
 router.post(
   "/:projectId/sprints/:sprintId/members",
-  requireOrgMember(),
   asyncHandler(async (req: AuthedRequest, res) => {
     const { project, role } = await assertProjectAccess(req.params.projectId, req.user.id);
     if (role.role === "MEMBER") throw new AppError(403, "Members cannot manage sprint members");
@@ -326,7 +319,6 @@ router.post(
 
 router.delete(
   "/:projectId/sprints/:sprintId/members/:userId",
-  requireOrgMember(),
   asyncHandler(async (req: AuthedRequest, res) => {
     const { project, role } = await assertProjectAccess(req.params.projectId, req.user.id);
     if (role.role === "MEMBER") throw new AppError(403, "Members cannot manage sprint members");
@@ -350,7 +342,6 @@ router.delete(
 
 router.get(
   "/:projectId/sprints/:sprintId/burndown",
-  requireOrgMember(),
   asyncHandler(async (req: AuthedRequest, res) => {
     const { project } = await assertProjectAccess(req.params.projectId, req.user.id);
 
