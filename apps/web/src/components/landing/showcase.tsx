@@ -78,13 +78,13 @@ export function LandingShowcase() {
   }, []);
 
   return (
-    <section ref={wrap} id="showcase" className="relative overflow-hidden" style={{ background: INK }}>
+    <section ref={wrap} id="showcase" className="relative overflow-hidden py-16 md:py-0" style={{ background: INK }}>
       <div
         ref={track}
-        className="flex min-h-[100dvh] w-max items-center gap-8 pr-[6vw] will-change-transform"
+        className="flex w-full flex-col gap-8 will-change-transform md:w-max md:flex-row md:items-center md:min-h-[100dvh]"
       >
         {/* intro panel */}
-        <div className="flex w-[82vw] max-w-[560px] shrink-0 flex-col justify-center px-6 sm:px-10">
+        <div className="flex w-full flex-col justify-center px-6 sm:px-10 md:w-[38vw] md:max-w-[560px] md:shrink-0">
           <span
             className="inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em]"
             style={{ color: FAINT, borderColor: LINE }}
@@ -112,7 +112,7 @@ export function LandingShowcase() {
         {SLIDES.map((s) => (
           <figure
             key={s.title}
-            className="group relative w-[74vw] max-w-[960px] shrink-0 overflow-hidden rounded-2xl border sm:w-[60vw]"
+            className="group relative w-full overflow-hidden rounded-2xl border md:w-[60vw] md:max-w-[960px] md:shrink-0"
             style={{ borderColor: LINE, background: "#0f131b" }}
           >
             <img
