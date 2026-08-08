@@ -8,6 +8,14 @@ Bringing Trello's visual simplicity, Jira's sprint planning, and Linear's modern
 
 </div>
 
+<p align="center">
+  <a href="docs/screenshots/03-dashboard.png">
+    <img src="docs/screenshots/03-dashboard.png" alt="ProjectFlow dashboard" width="900" />
+  </a>
+  <br/>
+  <sub><i>Organization dashboard — analytics, activity feed &amp; workload</i></sub>
+</p>
+
 ---
 
 ## ✨ Highlights
@@ -22,6 +30,37 @@ Bringing Trello's visual simplicity, Jira's sprint planning, and Linear's modern
 | **Role-based access** | Admin / Manager / Member enforced on the **backend**, not just hidden buttons |
 | **Real-time** | Socket.IO board sync + instant query invalidation across the app |
 | **Multi-tenant** | Orgs → Workspaces → Projects, with per-org isolation |
+
+---
+
+## 🖼 Screenshots
+
+### Marketing & auth
+
+<a href="docs/screenshots/01-landing.png"><img src="docs/screenshots/01-landing.png" alt="Landing page" width="430"/></a> &nbsp; &nbsp; <a href="docs/screenshots/02-login.png"><img src="docs/screenshots/02-login.png" alt="Login" width="430"/></a>
+
+🧑‍💻 **Tip:** the login page shows the demo credentials (`demo@projectflow.dev` / `demo1234`) right on it.
+
+### Workspace
+
+<table>
+  <tr>
+    <td align="center" width="50%"><a href="docs/screenshots/03-dashboard.png"><img src="docs/screenshots/03-dashboard.png" alt="Dashboard" width="420"/></a><br/><b>Dashboard</b><br/><sub>Org metrics, status &amp; priority distribution, 14-day trend, workload and recent activity</sub></td>
+    <td align="center" width="50%"><a href="docs/screenshots/04-board.png"><img src="docs/screenshots/04-board.png" alt="Kanban board" width="420"/></a><br/><b>Kanban board</b><br/><sub>Drag-and-drop tasks across columns, inline creation, WIP, labels &amp; priorities</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="docs/screenshots/05-task-sheet.png"><img src="docs/screenshots/05-task-sheet.png" alt="Task sheet" width="420"/></a><br/><b>Task sheet</b><br/><sub>Full task detail slide-over — status, assignee, priority, type, due date, story points, labels</sub></td>
+    <td align="center"><a href="docs/screenshots/06-task-sheet-activity.png"><img src="docs/screenshots/06-task-sheet-activity.png" alt="Task activity timeline" width="420"/></a><br/><b>Activity timeline</b><br/><sub>Audit trail inside every task — who renamed, prioritized, assigned, commented, and when</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="docs/screenshots/07-backlog.png"><img src="docs/screenshots/07-backlog.png" alt="Backlog" width="420"/></a><br/><b>Backlog</b><br/><sub>Unscheduled work with quick task creation and assignment into planned sprints</sub></td>
+    <td align="center"><a href="docs/screenshots/08-sprints.png"><img src="docs/screenshots/08-sprints.png" alt="Sprints list" width="420"/></a><br/><b>Sprints</b><br/><sub>Plan development cycles with goals, dates and committed story points</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="docs/screenshots/09-sprint-detail.png"><img src="docs/screenshots/09-sprint-detail.png" alt="Sprint detail" width="420"/></a><br/><b>Sprint detail</b><br/><sub>Progress, team workload and a live burndown chart (ideal vs actual points)</sub></td>
+    <td align="center"><a href="docs/screenshots/10-people.png"><img src="docs/screenshots/10-people.png" alt="People & invitations" width="420"/></a><br/><b>People</b><br/><sub>Organization members with roles (Admin / Manager / Member) and email invitations</sub></td>
+  </tr>
+</table>
 
 ---
 
