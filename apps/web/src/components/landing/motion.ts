@@ -5,7 +5,6 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 export { gsap, ScrollTrigger, ScrollToPlugin };
 
 export function initGsap() {
-  if (gsap.core.globals().ScrollTrigger) return gsap;
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
   ScrollTrigger.config({ ignoreMobileResize: true });
   return gsap;
