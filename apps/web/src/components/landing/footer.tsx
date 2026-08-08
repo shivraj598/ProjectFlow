@@ -97,7 +97,7 @@ export function LandingFooter() {
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <Link
                 to="/register"
-                className="group flex h-12 items-center gap-2 rounded-xl bg-ACCENT px-7 text-[15px] font-semibold text-white transition-transform hover:scale-[1.03] active:scale-[0.98]"
+                className="group flex h-12 items-center gap-2 rounded-xl px-7 text-[15px] font-semibold text-white transition-transform hover:scale-[1.03] active:scale-[0.98]"
                 style={{ background: ACCENT, boxShadow: `0 16px 44px -16px ${ACCENT_SOFT}` }}
               >
                 Start free <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
