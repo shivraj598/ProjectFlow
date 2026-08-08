@@ -118,26 +118,6 @@ ProjectFlow/
 └── projectdescription.md             # full product spec
 ```
 
----
-
-## 🖥 Screenshots
-
-> Replace these with your own captures — the app renders everything above the fold at 1440×900.
-
-| Screen | Preview |
-| --- | --- |
-| Landing page | `docs/screenshots/01-landing.png` |
-| Login | `docs/screenshots/02-login.png` |
-| Dashboard analytics | `docs/screenshots/03-dashboard.png` |
-| Kanban board | `docs/screenshots/04-board.png` |
-| Task sheet | `docs/screenshots/05-task-sheet.png` |
-| Task activity timeline | `docs/screenshots/06-task-sheet-activity.png` |
-| Backlog | `docs/screenshots/07-backlog.png` |
-| Sprints | `docs/screenshots/08-sprints.png` |
-| Sprint detail + burndown | `docs/screenshots/09-sprint-detail.png` |
-| People & invitations | `docs/screenshots/10-people.png` |
-
----
 
 ## ⚠️ Difficulties Faced & How They Were Tackled
 
