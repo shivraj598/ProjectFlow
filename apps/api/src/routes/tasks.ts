@@ -138,7 +138,7 @@ router.patch(
         logActivity({ orgId: project.orgId, projectId: project.id, taskId: task.id, actorId: req.user.id, type: "task.due", message: `${req.user.name} updated the due date` })
       );
 
-    await Promise.all(events);
+    await Promise.all(events.map((e) => e()));
     emitToProject(project.id, "task:updated", updated);
     res.json({ task: updated });
   })
