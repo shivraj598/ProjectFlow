@@ -4,6 +4,7 @@ import {
   CalendarDays,
   Flag,
   Hash,
+  History,
   MessageSquare,
   Send,
   Tag,
@@ -26,7 +27,7 @@ import { PriorityDot } from "@/components/shared/priority";
 import { api, patch, post, del } from "@/lib/api";
 import { useAuthStore } from "@/stores/auth-store";
 import { PRIORITIES, PRIORITY_META, TASK_TYPES, TYPE_META, type Priority, type TaskType } from "@/lib/constants";
-import type { Column, Comment, Task } from "@/lib/types";
+import type { Activity, Column, Comment, Task } from "@/lib/types";
 import { cn, formatDate, timeAgo, toInputDate } from "@/lib/utils";
 import { toast } from "sonner";
 
@@ -69,6 +70,12 @@ export function TaskSheet({ taskId, columns, members, onOpenChange }: TaskSheetP
     enabled: !!taskId,
   });
 
+  const { data: activityData } = useQuery({
+    queryKey: ["activity", taskId],
+    queryFn: () => api<{ activities: Activity[] }>(`/api/tasks/${taskId}/activity`),
+    enabled: !!taskId,
+  });
+
   const task = data?.task;
 
   useEffect(() => {
@@ -87,6 +94,7 @@ export function TaskSheet({ taskId, columns, members, onOpenChange }: TaskSheetP
     queryClient.invalidateQueries({ queryKey: ["task", taskId] });
     queryClient.invalidateQueries({ queryKey: ["board", task?.projectId] });
     queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+    queryClient.invalidateQueries({ queryKey: ["activity", taskId] });
   };
 
   const updateTask = useMutation({
