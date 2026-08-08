@@ -51,6 +51,38 @@ router.get(
   })
 );
 
+// GET /api/tasks/:id/activity — task activity timeline
+router.get(
+  "/:id/activity",
+  asyncHandler(async (req: AuthedRequest, res) => {
+    const task = await prisma.task.findUnique({
+      where: { id: req.params.id },
+      include: { project: { select: { orgId: true } } },
+    });
+    if (!task) throw new AppError(404, "Task not found");
+    const membership = await prisma.organizationMember.findUnique({
+      where: { orgId_userId: { orgId: task.project.orgId, userId: req.user.id } },
+    });
+    if (!membership) throw new AppError(403, "Not a member");
+
+    const activities = await prisma.activity.findMany({
+      where: { taskId: task.id },
+      include: { actor: { select: { id: true, name: true, avatarUrl: true } } },
+      orderBy: { createdAt: "desc" },
+      take: 100,
+    });
+    res.json({
+      activities: activities.map((a) => ({
+        id: a.id,
+        type: a.type,
+        message: a.message,
+        createdAt: a.createdAt,
+        actor: a.actor,
+      })),
+    });
+  })
+);
+
 router.patch(
   "/:id",
   asyncHandler(async (req: AuthedRequest, res) => {
