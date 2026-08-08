@@ -2,14 +2,21 @@ import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   CalendarDays,
+  CircleDot,
   Flag,
   Hash,
   History,
+  ListMinus,
+  ListPlus,
   MessageSquare,
+  Plus,
   Send,
+  Sparkles,
   Tag,
+  TextCursorInput,
   Trash2,
   User,
+  UserRound,
   X,
   type LucideIcon,
 } from "lucide-react";
@@ -444,6 +451,16 @@ export function TaskSheet({ taskId, columns, members, onOpenChange }: TaskSheetP
                   </div>
                 </div>
               </div>
+
+              {/* Activity */}
+              <div className="mt-6">
+                <h4 className="mb-3 flex items-center gap-1.5 text-[13px] font-semibold">
+                  <History className="size-3.5 text-muted-foreground" />
+                  Activity
+                  <span className="text-muted-foreground">({activityData?.activities.length ?? 0})</span>
+                </h4>
+                <ActivityTimeline activities={activityData?.activities ?? []} />
+              </div>
             </div>
 
             {/* Footer */}
@@ -476,4 +493,71 @@ function TypeIcon({ type }: { type: TaskType }) {
 
 function shortId(id: string): string {
   return id.slice(-4).toUpperCase();
+}
+
+// Activity type -> icon + badge accent used in the timeline
+const ACTIVITY_META: Record<string, { icon: LucideIcon; dotClass: string }> = {
+  "task.created": { icon: Sparkles, dotClass: "bg-[#5b8cff]/15 text-[#5b8cff]" },
+  "task.title": { icon: TextCursorInput, dotClass: "bg-muted text-foreground" },
+  "task.priority": { icon: Flag, dotClass: "bg-[#f59e0b]/15 text-[#f59e0b]" },
+  "task.assignee": { icon: UserRound, dotClass: "bg-[#22c55e]/15 text-[#22c55e]" },
+  "task.due": { icon: CalendarDays, dotClass: "bg-[#ec4899]/15 text-[#ec4899]" },
+  "task.deleted": { icon: Trash2, dotClass: "bg-destructive/10 text-destructive" },
+  "comment.added": { icon: MessageSquare, dotClass: "bg-[#8b5cf6]/15 text-[#8b5cf6]" },
+  "sprint.created": { icon: ListPlus, dotClass: "bg-[#14b8a6]/15 text-[#14b8a6]" },
+  "sprint.tasks_added": { icon: ListPlus, dotClass: "bg-[#14b8a6]/15 text-[#14b8a6]" },
+  "sprint.task_removed": { icon: ListMinus, dotClass: "bg-[#14b8a6]/15 text-[#14b8a6]" },
+  "column.created": { icon: Plus, dotClass: "bg-muted text-foreground" },
+};
+
+const ACTIVITY_META_DEFAULT = { icon: CircleDot, dotClass: "bg-muted text-muted-foreground" };
+
+function ActivityTimeline({ activities }: { activities: Activity[] }) {
+  if (activities.length === 0) {
+    return (
+      <p className="rounded-lg border border-dashed border-border py-6 text-center text-[12px] text-muted-foreground">
+        No changes recorded yet — edits, moves and comments will show up here.
+      </p>
+    );
+  }
+
+  return (
+    <ol className="space-y-0.5">
+      {activities.map((a, i) => {
+        const meta = ACTIVITY_META[a.type] ?? ACTIVITY_META_DEFAULT;
+        const Icon = meta.icon;
+        const isLast = i === activities.length - 1;
+        return (
+          <li key={a.id} className="flex gap-2.5">
+            <div className="flex shrink-0 flex-col items-center">
+              <div className="relative mt-0.5">
+                {a.actor ? (
+                  <UserAvatar name={a.actor.name} src={a.actor.avatarUrl} seed={a.actor.name} className="size-5 text-[9px]" />
+                ) : (
+                  <span className="flex size-5 items-center justify-center rounded-full bg-muted">
+                    <Icon className="size-2.5 text-muted-foreground" />
+                  </span>
+                )}
+                {a.actor && (
+                  <span
+                    className={cn(
+                      "absolute -bottom-1 -right-1 flex size-3.5 items-center justify-center rounded-full border-2 border-background",
+                      meta.dotClass
+                    )}
+                  >
+                    <Icon className="size-2" />
+                  </span>
+                )}
+              </div>
+              {!isLast && <span className="mt-1 w-px flex-1 bg-border/70" />}
+            </div>
+            <div className="min-w-0 flex-1 pb-2.5">
+              <p className="text-[12px] leading-relaxed text-foreground/90">{a.message}</p>
+              <p className="mt-0.5 text-[10px] text-muted-foreground">{timeAgo(a.createdAt)}</p>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  );
 }
