@@ -37,7 +37,7 @@ Bringing Trello's visual simplicity, Jira's sprint planning, and Linear's modern
 
 ### Marketing & auth
 
-<a href="docs/screenshots/01-landing.png"><img src="docs/screenshots/01-landing.png" alt="Landing page" width="430"/></a> &nbsp; &nbsp; <a href="docs/screenshots/02-login.png"><img src="docs/screenshots/02-login.png" alt="Login" width="430"/></a>
+<a href="docs/screenshots/01-landing.png"><img src="docs/screenshots/landing_hero.png" alt="Landing page" width="430"/></a> &nbsp; &nbsp; <a href="docs/screenshots/02-login.png"><img src="docs/screenshots/02-login.png" alt="Login" width="430"/></a> &nbsp; &nbsp; <a href="docs/screenshots/02-register.png"><img src="docs/screenshots/02-register.png" alt="Sign up" width="430"/></a>
 
 🧑‍💻 **Tip:** the login page shows the demo credentials (`demo@projectflow.dev` / `demo1234`) right on it.
 
