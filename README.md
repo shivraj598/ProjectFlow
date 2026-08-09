@@ -1,24 +1,14 @@
-<div align="center">
-
 # ProjectFlow
 
-**A real-time, multi-tenant project management platform inspired by Jira, Linear & Trello**
+A real-time, multi-tenant project management platform inspired by Jira, Linear & Trello
 
 Bringing Trello's visual simplicity, Jira's sprint planning, and Linear's modern UX into one platform — Kanban boards, sprint planning with burndown charts, backlogs, comments, activity timelines, and live collaboration.
 
-</div>
-
-<p align="center">
-  <a href="docs/screenshots/03-dashboard.png">
-    <img src="docs/screenshots/03-dashboard.png" alt="ProjectFlow dashboard" width="900" />
-  </a>
-  <br/>
-  <sub><i>Organization dashboard — analytics, activity feed &amp; workload</i></sub>
-</p>
-
----
+![ProjectFlow dashboard](docs/screenshots/03-dashboard.png)
 
 ## ✨ Highlights
+
+### Organization dashboard — analytics, activity feed & workload
 
 | | |
 | --- | --- |
@@ -37,30 +27,18 @@ Bringing Trello's visual simplicity, Jira's sprint planning, and Linear's modern
 
 ### Marketing & auth
 
-<a href="docs/screenshots/01-landing.png"><img src="docs/screenshots/landing_hero.png" alt="Landing page" width="430"/></a> &nbsp; &nbsp; <a href="docs/screenshots/02-login.png"><img src="docs/screenshots/02-login.png" alt="Login" width="430"/></a> &nbsp; &nbsp; <a href="docs/screenshots/02-register.png"><img src="docs/screenshots/02-register.png" alt="Sign up" width="430"/></a>
+[![Landing page](docs/screenshots/landing_hero.png)](docs/screenshots/01-landing.png) &nbsp; &nbsp; [![Login](docs/screenshots/02-login.png)](docs/screenshots/02-login.png) &nbsp; &nbsp; [![Sign up](docs/screenshots/02-register.png)](docs/screenshots/02-register.png)
 
 🧑‍💻 **Tip:** the login page shows the demo credentials (`demo@projectflow.dev` / `demo1234`) right on it.
 
 ### Workspace
 
-<table>
-  <tr>
-    <td align="center" width="50%"><a href="docs/screenshots/03-dashboard.png"><img src="docs/screenshots/03-dashboard.png" alt="Dashboard" width="420"/></a><br/><b>Dashboard</b><br/><sub>Org metrics, status &amp; priority distribution, 14-day trend, workload and recent activity</sub></td>
-    <td align="center" width="50%"><a href="docs/screenshots/04-board.png"><img src="docs/screenshots/04-board.png" alt="Kanban board" width="420"/></a><br/><b>Kanban board</b><br/><sub>Drag-and-drop tasks across columns, inline creation, WIP, labels &amp; priorities</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="docs/screenshots/05-task-sheet.png"><img src="docs/screenshots/05-task-sheet.png" alt="Task sheet" width="420"/></a><br/><b>Task sheet</b><br/><sub>Full task detail slide-over — status, assignee, priority, type, due date, story points, labels</sub></td>
-    <td align="center"><a href="docs/screenshots/06-task-sheet-activity.png"><img src="docs/screenshots/06-task-sheet-activity.png" alt="Task activity timeline" width="420"/></a><br/><b>Activity timeline</b><br/><sub>Audit trail inside every task — who renamed, prioritized, assigned, commented, and when</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="docs/screenshots/07-backlog.png"><img src="docs/screenshots/07-backlog.png" alt="Backlog" width="420"/></a><br/><b>Backlog</b><br/><sub>Unscheduled work with quick task creation and assignment into planned sprints</sub></td>
-    <td align="center"><a href="docs/screenshots/08-sprints.png"><img src="docs/screenshots/08-sprints.png" alt="Sprints list" width="420"/></a><br/><b>Sprints</b><br/><sub>Plan development cycles with goals, dates and committed story points</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="docs/screenshots/09-sprint-detail.png"><img src="docs/screenshots/09-sprint-detail.png" alt="Sprint detail" width="420"/></a><br/><b>Sprint detail</b><br/><sub>Progress, team workload and a live burndown chart (ideal vs actual points)</sub></td>
-    <td align="center"><a href="docs/screenshots/10-people.png"><img src="docs/screenshots/10-people.png" alt="People & invitations" width="420"/></a><br/><b>People</b><br/><sub>Organization members with roles (Admin / Manager / Member) and email invitations</sub></td>
-  </tr>
-</table>
+| | |
+| --- | --- |
+| [![Dashboard](docs/screenshots/03-dashboard.png)](docs/screenshots/03-dashboard.png)  \n**Dashboard**  \nOrg metrics, status & priority distribution, 14-day trend, workload and recent activity | [![Kanban board](docs/screenshots/04-board.png)](docs/screenshots/04-board.png)  \n**Kanban board**  \nDrag-and-drop tasks across columns, inline creation, WIP, labels & priorities |
+| [![Task sheet](docs/screenshots/05-task-sheet.png)](docs/screenshots/05-task-sheet.png)  \n**Task sheet**  \nFull task detail slide-over — status, assignee, priority, type, due date, story points, labels | [![Activity timeline](docs/screenshots/06-task-sheet-activity.png)](docs/screenshots/06-task-sheet-activity.png)  \n**Activity timeline**  \nAudit trail inside every task — who renamed, prioritized, assigned, commented, and when |
+| [![Backlog](docs/screenshots/07-backlog.png)](docs/screenshots/07-backlog.png)  \n**Backlog**  \nUnscheduled work with quick task creation and assignment into planned sprints | [![Sprints](docs/screenshots/08-sprints.png)](docs/screenshots/08-sprints.png)  \n**Sprints**  \nPlan development cycles with goals, dates and committed story points |
+| [![Sprint detail](docs/screenshots/09-sprint-detail.png)](docs/screenshots/09-sprint-detail.png)  \n**Sprint detail**  \nProgress, team workload and a live burndown chart (ideal vs actual points) | [![People](docs/screenshots/10-people.png)](docs/screenshots/10-people.png)  \n**People**  \nOrganization members with roles (Admin / Manager / Member) and email invitations |
 
 ---
 
@@ -104,8 +82,8 @@ pnpm db:seed     # demo org "Nimbus Labs" + 5 users + projects/tasks
 pnpm dev
 ```
 
-- **Web:** http://localhost:5173
-- **API:** http://localhost:4000 (`/api/health` to verify)
+- **Web:** <http://localhost:5173>
+- **API:** <http://localhost:4000> (`/api/health` to verify)
 
 ### 5. Sign in (demo)
 
@@ -136,7 +114,7 @@ pnpm build        # typechecks + builds API and web
 
 ## 🗂 Project Structure
 
-```
+```text
 ProjectFlow/
 ├── apps/
 │   ├── api/
@@ -155,37 +133,43 @@ ProjectFlow/
 │           ├── lib/api.ts            # fetch client + auto token refresh
 │           └── stores/auth-store.ts  # zustand auth state
 └── projectdescription.md             # full product spec
-```
 
+```
 
 ## ⚠️ Difficulties Faced & How They Were Tackled
 
 ### 1. Multi-tenant authorization on every route
+
 Every resource (task, board, sprint) belongs to an org, so **one missing membership check = data leak across tenants**.
 
 **Solution:** A reusable `requireAuth` + `requireOrgMember` middleware chain, plus `assertProjectAccess()` helpers that resolve the project → org and verify the caller's membership before any write. There's no endpoint that trusts the frontend hide-buttons; access is always re-verified server-side.
 
 ### 2. Express route mounting collisions
+
 `/api/orgs`, `/api/projects`, and `/api/tasks` each host multiple routers (orgs + workspaces + projects + dashboard on one prefix; projects + sprints on another). An early attempt to reuse `requireOrgMember` on `/api/projects/:projectId/sprints` broke, because the path has no `orgId` parameter.
 
 **Solution:** Each router documents its exact mount contract (e.g. `// mounted at /api/projects — /api/projects/:projectId/sprints`). Sprints resolve org membership by looking up the project first instead of expecting an `orgId` in the URL.
 
 ### 3. Keeping the board real-time without edit wars
+
 Multiple users moving tasks, renaming columns, and editing the same task would produce clashing UI state.
 
 **Solution:** Socket.IO rooms (`emitToProject`) broadcast events like `task:updated` / `task:moved` / `comment:added`, and the client **invalidates TanStack Query keys** on those events instead of mutating local state. Combined with the 401 → central token-refresh (a single shared `refreshPromise` guards against concurrent refreshes), every view converges to the same ground truth.
 
 ### 4. Activity timeline required discipline from day one
-An audit trail only works if *every* mutation writes to it — and it's easy to forget.
+
+An audit trail only works if _every_ mutation writes to it — and it's easy to forget.
 
 **Solution:** A shared `logActivity()` helper plus a **deferred events pattern** in the task patch handler — mutations push `() => logActivity(...)` closures and execute them in one `Promise.all`. This caught one subtle bug during development: the event closures were awaited but never **invoked**, so task edits silently logged nothing before the fix (`await Promise.all(events.map(e => e()))`).
 
 ### 5. Backlog vs. sprint data overlap
+
 The backlog and the sprint both list tasks, causing duplicates (a task could appear scheduled and unscheduled).
 
 **Solution:** The add-to-sprint API only returns **unscheduled** tasks; the UI never lists a scheduled task as a candidate again. The backend owns that rule, so the UI can't drift.
 
 ### 6. Auth session churn while developing
+
 Tokens expired mid-flow during dev and the UI logged users out abruptly.
 
 **Solution:** A single-flight refresh interceptor in `lib/api.ts` — the first 401 triggers one refresh, all concurrent retries await the same promise, and only a failed refresh logs the user out.
@@ -226,6 +210,4 @@ Private / internal project. See `projectdescription.md` for the full product spe
 
 ---
 
-<div align="center">
 Made with React, Express, Prisma, Socket.IO & Tailwind — and a lot of caffeine ☕
-</div>
