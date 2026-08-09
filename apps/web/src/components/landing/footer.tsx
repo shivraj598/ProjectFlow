@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { ACCENT, FAINT, INK, LINE, MUTED, TEXT } from "./tokens";
+import { FAINT, LINE, LINE_SOFT, MUTED, TEXT } from "./tokens";
 
 const COLUMNS: { title: string; links: { label: string; to: string }[] }[] = [
   {
@@ -38,15 +38,14 @@ export function LandingFooter() {
   };
 
   return (
-    <footer className="relative overflow-hidden" style={{ background: INK }}>
-      {/* footer grid */}
+    <footer className="relative" style={{ background: "#000000" }}>
       <div className="border-t" style={{ borderColor: LINE }}>
-        <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
           <div className="lg:col-span-1">
             <Link to="/login" className="flex w-fit items-center gap-2.5">
               <span
-                className="flex size-8 items-center justify-center rounded-[10px] text-[12px] font-bold text-white"
-                style={{ background: ACCENT }}
+                className="flex size-8 items-center justify-center rounded-lg text-[12px] font-bold"
+                style={{ background: "#ffffff", color: "#000000" }}
               >
                 PF
               </span>
@@ -80,12 +79,12 @@ export function LandingFooter() {
             </div>
           ))}
         </div>
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between border-t px-6 py-6" style={{ borderColor: LINE }}>
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between border-t px-4 py-6 sm:px-6" style={{ borderColor: LINE_SOFT }}>
           <p className="text-[12px]" style={{ color: FAINT }}>
             © {new Date().getFullYear()} ProjectFlow · Plan the work, ship the product.
           </p>
           <p className="hidden font-mono text-[12px] sm:block" style={{ color: FAINT }}>
-            ⌘ Boards · Sprints · Analytics
+            Boards · Sprints · Analytics
           </p>
         </div>
       </div>
