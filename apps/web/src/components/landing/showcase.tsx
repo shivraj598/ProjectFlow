@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { gsap, initGsap } from "./motion";
-import { ACCENT, FAINT, INK, LINE, MUTED, TEXT } from "./tokens";
+import { FAINT, INK, LINE, MUTED, TEXT } from "./tokens";
 
 const SLIDES = [
   {
@@ -56,7 +56,6 @@ export function LandingShowcase() {
             invalidateOnRefresh: true,
           },
         });
-        // progress bar under the section
         gsap.fromTo(
           ".show-progress",
           { scaleX: 0 },
@@ -85,26 +84,20 @@ export function LandingShowcase() {
       >
         {/* intro panel */}
         <div className="flex w-full flex-col justify-center px-6 sm:px-10 md:w-[38vw] md:max-w-[560px] md:shrink-0">
-          <span
-            className="inline-flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em]"
-            style={{ color: FAINT, borderColor: LINE }}
-          >
-            Visual tour
-          </span>
           <h2
-            className="mt-6 text-[clamp(2rem,4vw,3.2rem)] font-semibold leading-[1.02] tracking-[-0.02em]"
+            className="text-[clamp(2rem,4vw,3.2rem)] font-bold leading-[1.02] tracking-[-0.02em]"
             style={{ color: TEXT }}
           >
             Four screens,
             <br />
-            <span style={{ color: MUTED }}>zero slack between them.</span>
+            <span className="inline-block bg-white px-2 text-black">zero slack between them.</span>
           </h2>
           <p className="mt-5 max-w-sm text-[15px] leading-relaxed" style={{ color: FAINT }}>
             This is the actual product — drag the board, burn the sprint, read the plan. Keep
             scrolling, the gallery moves with you.
           </p>
-          <p className="mt-8 flex items-center gap-2 text-[13px] font-medium" style={{ color: ACCENT }}>
-            <span className="size-1.5 rounded-full" style={{ background: ACCENT }} /> Scroll — the section pans
+          <p className="mt-8 flex items-center gap-2 text-[13px] font-medium" style={{ color: TEXT }}>
+            <span className="size-1.5 rounded-full bg-white" /> Scroll — the section pans
           </p>
         </div>
 
@@ -113,7 +106,7 @@ export function LandingShowcase() {
           <figure
             key={s.title}
             className="group relative w-full overflow-hidden rounded-2xl border md:w-[60vw] md:max-w-[960px] md:shrink-0"
-            style={{ borderColor: LINE, background: "#0f131b" }}
+            style={{ borderColor: LINE, background: "#060606" }}
           >
             <img
               src={s.src}
@@ -123,10 +116,10 @@ export function LandingShowcase() {
             />
             <figcaption
               className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6"
-              style={{ background: "linear-gradient(to top, rgba(8,10,14,0.92) 20%, transparent)" }}
+              style={{ background: "linear-gradient(to top, rgba(10,13,18,0.94) 20%, transparent)" }}
             >
               <div>
-                <p className="flex items-center gap-2 text-[12px] font-semibold" style={{ color: ACCENT }}>
+                <p className="flex items-center gap-2 text-[12px] font-semibold" style={{ color: TEXT }}>
                   <span className="font-mono" style={{ color: FAINT }}>{s.tag}</span> {s.title}
                 </p>
                 <p className="mt-1.5 max-w-md text-[14px] leading-snug" style={{ color: MUTED }}>
@@ -140,8 +133,8 @@ export function LandingShowcase() {
       </div>
 
       {/* progress rail */}
-      <div className="absolute inset-x-6 bottom-6 hidden h-px overflow-hidden sm:block" style={{ background: "rgba(255,255,255,0.08)" }}>
-        <div className="show-progress h-full w-full origin-left" style={{ background: ACCENT }} />
+      <div className="absolute inset-x-6 bottom-6 hidden h-px overflow-hidden rounded-full sm:block" style={{ background: "rgba(255,255,255,0.08)" }}>
+        <div className="show-progress h-full w-full origin-left bg-white" />
       </div>
     </section>
   );
