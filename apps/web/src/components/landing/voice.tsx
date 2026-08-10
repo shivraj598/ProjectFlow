@@ -36,21 +36,18 @@ export function LandingVoice() {
   }, []);
 
   return (
-    <section ref={root} className="relative overflow-hidden py-36" style={{ background: INK }}>
+    <section ref={root} id="voice" className="relative overflow-hidden py-32 lg:py-40" style={{ background: INK }}>
       <div
-        className="pointer-events-none absolute right-[-8%] top-1/2 h-[420px] w-[420px] -translate-y-1/2 rounded-full blur-[120px]"
-        style={{ background: "rgba(107,157,255,0.08)" }}
         aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[460px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[130px]"
+        style={{ background: "rgba(255,255,255,0.035)" }}
       />
-      <div className="mx-auto w-full max-w-4xl px-6 text-center md:text-left">
-        <p
-          className="mb-8 text-[11px] font-medium uppercase tracking-[0.22em]"
-          style={{ color: FAINT }}
-        >
-          The thesis
+      <div className="relative mx-auto w-full max-w-4xl px-6">
+        <p className="mb-8 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: FAINT }}>
+          <span className="h-px w-8 bg-white" /> The thesis
         </p>
         <p
-          className="text-[clamp(1.35rem,2.6vw,2.1rem)] font-medium leading-[1.5] tracking-[-0.01em]"
+          className="text-[clamp(1.4rem,2.7vw,2.2rem)] font-medium leading-[1.5] tracking-[-0.01em]"
           style={{ color: TEXT }}
         >
           {MANIFESTO.split(" ").map((w, i) => (
