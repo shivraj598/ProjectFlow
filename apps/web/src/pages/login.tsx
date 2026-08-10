@@ -8,6 +8,8 @@ import type { User } from "@/stores/auth-store";
 import type { OrgSummary } from "@/lib/types";
 import { queryClient } from "@/lib/query-client";
 import { toast } from "sonner";
+import { AuthShell, Field } from "@/components/auth-shell";
+import { FAINT, MUTED, TEXT } from "@/components/landing/tokens";
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -39,71 +41,38 @@ export function LoginPage() {
   if (accessToken) return <Navigate to="/app/dashboard" replace />;
 
   return (
-    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden px-4">
-      <BackgroundGlow />
-      <div className="fade-up relative z-10 w-full max-w-sm">
-        <Link to="/" className="mb-8 flex items-center justify-center gap-2.5">
-          <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-[12px] font-bold text-primary-foreground">PF</span>
-          <span className="text-lg font-semibold tracking-tight">ProjectFlow</span>
-        </Link>
-
-        <div className="rounded-2xl border border-border bg-card/80 p-7 shadow-xl backdrop-blur">
-          <h1 className="text-xl font-semibold tracking-tight">Welcome back</h1>
-          <p className="mt-1 text-[13px] text-muted-foreground">Sign in to your workspace.</p>
-
-          <form onSubmit={submit} className="mt-6 space-y-4">
-            <div className="space-y-1.5">
-              <label htmlFor="email" className="text-[13px] font-medium">Email</label>
-              <input
-                id="email"
-                type="email"
-                required
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="h-10 w-full rounded-lg border border-input bg-background px-3 text-[14px] outline-none transition focus:border-primary/50 focus:ring-2 focus:ring-ring/30"
-                placeholder="you@company.com"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <label htmlFor="password" className="text-[13px] font-medium">Password</label>
-              <input
-                id="password"
-                type="password"
-                required
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="h-10 w-full rounded-lg border border-input bg-background px-3 text-[14px] outline-none transition focus:border-primary/50 focus:ring-2 focus:ring-ring/30"
-                placeholder="••••••••"
-              />
-            </div>
-            <button
-              type="submit"
-              disabled={busy}
-              className="flex h-10 w-full items-center justify-center gap-1.5 rounded-lg bg-primary text-[14px] font-medium text-primary-foreground shadow-sm transition-all hover:bg-primary/90 active:scale-[0.99] disabled:opacity-60"
-            >
-              {busy ? <Loader2 className="size-4 animate-spin" /> : <>Continue <ArrowRight className="size-4" /></>}
-            </button>
-          </form>
-        </div>
-
-        <p className="mt-5 text-center text-[13px] text-muted-foreground">
+    <AuthShell
+      badge="sign-in"
+      title="Welcome back"
+      subtitle="Authenticate to resume your workspace · SYS-01"
+      footer={
+        <>
           No account yet?{" "}
-          <Link to="/register" className="font-medium text-primary hover:underline">Create one</Link>
-        </p>
-        <p className="mt-3 text-center text-[11px] text-muted-foreground/70">
-          Demo: <span className="font-mono">demo@projectflow.dev</span> / <span className="font-mono">demo1234</span>
-        </p>
-      </div>
-    </div>
-  );
-}
+          <Link to="/register" className="font-medium underline underline-offset-4" style={{ color: TEXT }}>
+            Create one
+          </Link>
+        </>
+      }
+    >
+      <form onSubmit={submit} className="mt-7 space-y-4">
+        <Field id="email" label="Email" type="email" autoComplete="email" value={email} onChange={setEmail} placeholder="you@company.com" />
+        <Field id="password" label="Password" type="password" autoComplete="current-password" value={password} onChange={setPassword} placeholder="••••••••" />
+        <button
+          type="submit"
+          disabled={busy}
+          className="flex h-10 w-full items-center justify-center gap-1.5 text-[14px] font-bold transition-all hover:opacity-90 active:scale-[0.99] disabled:opacity-50"
+          style={{ background: "#ffffff", color: "#000000" }}
+        >
+          {busy ? <Loader2 className="size-4 animate-spin" /> : <>Continue <ArrowRight className="size-4" /></>}
+        </button>
+      </form>
 
-function BackgroundGlow() {
-  return (
-    <div className="pointer-events-none absolute inset-0" aria-hidden>
-      <div className="absolute left-1/2 top-[-20%] h-[480px] w-[720px] -translate-x-1/2 rounded-full bg-primary/15 blur-[120px]" />
-    </div>
+      <p className="mt-5 flex items-center justify-between border-t pt-4 font-mono text-[10px] uppercase tracking-[0.14em]" style={{ borderColor: "rgba(255,255,255,0.07)", color: FAINT }}>
+        Demo access
+        <span className="normal-case tracking-normal" style={{ color: MUTED }}>
+          demo@projectflow.dev · demo1234
+        </span>
+      </p>
+    </AuthShell>
   );
 }
