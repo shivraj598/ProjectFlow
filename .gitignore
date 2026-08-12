@@ -4,5 +4,7 @@ dist
 .DS_Store
 .env
 .env.local
+.dev.vars
+.wrangler
 apps/api/prisma/dev.db
 apps/api/prisma/dev.db-journal
