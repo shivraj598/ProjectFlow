@@ -8,5 +8,11 @@ allowBuilds:
   "esbuild": true
   "bcryptjs": true
   "canvas": true
+  "workerd": true
+  "sharp": true
   "@oxlint/binding-darwin-arm64": true
   "@rolldown/binding-darwin-arm64": true
+
+minimumReleaseAgeExclude:
+  - miniflare@5.20260804.1-alpha
+  - wrangler@4.121.0

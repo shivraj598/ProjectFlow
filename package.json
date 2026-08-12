@@ -14,15 +14,7 @@
     "setup": "pnpm install && pnpm --filter @projectflow/api db:push && pnpm --filter @projectflow/api db:seed"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@prisma/client",
-      "@prisma/engines",
-      "prisma",
-      "esbuild",
-      "bcryptjs"
-    ]
+    "concurrently": "^9.1.2",
+    "wrangler": "^4.121.0"
   }
 }
