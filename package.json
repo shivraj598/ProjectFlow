@@ -8,6 +8,7 @@
     "dev:api": "pnpm --filter @projectflow/api dev",
     "dev:web": "pnpm --filter @projectflow/web dev",
     "build": "pnpm --filter @projectflow/api build && pnpm --filter @projectflow/web build",
+    "deploy": "pnpm build && wrangler deploy",
     "db:push": "pnpm --filter @projectflow/api db:push",
     "db:seed": "pnpm --filter @projectflow/api db:seed",
     "setup": "pnpm install && pnpm --filter @projectflow/api db:push && pnpm --filter @projectflow/api db:seed"
