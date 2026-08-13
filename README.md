@@ -6,7 +6,7 @@ Bringing Trello's visual simplicity, Jira's sprint planning, and Linear's modern
 
 ![ProjectFlow dashboard](docs/screenshots/03-dashboard.png)
 
-## Highlights
+## Projects Highlights 
 
 ### Organization dashboard — analytics, activity feed & workload
 
