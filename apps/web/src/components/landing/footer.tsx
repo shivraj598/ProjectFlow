@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { FAINT, LINE, LINE_SOFT, MUTED, TEXT } from "./tokens";
+import { ACCENT, FAINT, INK, LINE, LINE_SOFT, MUTED, ON_ACCENT, TEXT } from "./tokens";
 
 const COLUMNS: { title: string; links: { label: string; to: string }[] }[] = [
   {
@@ -38,14 +38,14 @@ export function LandingFooter() {
   };
 
   return (
-    <footer className="relative" style={{ background: "#000000" }}>
+    <footer className="relative" style={{ background: INK }}>
       <div className="border-t" style={{ borderColor: LINE }}>
         <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-14 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
           <div className="lg:col-span-1">
             <Link to="/login" className="flex w-fit items-center gap-2.5">
               <span
                 className="flex size-8 items-center justify-center rounded-lg text-[12px] font-bold"
-                style={{ background: "#ffffff", color: "#000000" }}
+                style={{ background: ACCENT, color: ON_ACCENT }}
               >
                 PF
               </span>
@@ -68,7 +68,7 @@ export function LandingFooter() {
                     <a
                       href={l.to}
                       onClick={(e) => go(e, l.to)}
-                      className="text-[13px] transition-colors hover:text-white"
+                      className="text-[13px] transition-colors hover:text-[var(--ld-text)]"
                       style={{ color: MUTED }}
                     >
                       {l.label}
