@@ -238,38 +238,3 @@ export function LandingNav() {
     </header>
   );
 }
-
-/* Segmented black ↔ white switch */
-function ThemeToggle({ light, onToggle }: { light: boolean; onToggle: () => void }) {
-  return (
-    <button
-      role="switch"
-      aria-checked={light}
-      aria-label={light ? "Switch to black mode" : "Switch to white mode"}
-      title={light ? "Switch to black mode" : "Switch to white mode"}
-      onClick={onToggle}
-      className="relative flex h-9 w-[68px] shrink-0 items-center rounded-full border px-1 transition-colors duration-300"
-      style={{ borderColor: LINE, background: "color-mix(in srgb, var(--ld-accent) 5%, transparent)" }}
-    >
-      <span
-        aria-hidden
-        className="absolute top-1 size-7 rounded-full transition-all duration-300"
-        style={{
-          background: ACCENT,
-          left: light ? "calc(100% - 2rem)" : "0.25rem",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
-        }}
-      />
-      <span className="relative z-10 flex w-full items-center justify-between px-1.5">
-        <Sun
-          className="size-4 transition-colors duration-300"
-          style={{ color: light ? ON_ACCENT : FAINT }}
-        />
-        <Moon
-          className="size-4 transition-colors duration-300"
-          style={{ color: light ? FAINT : TEXT }}
-        />
-      </span>
-    </button>
-  );
-}
