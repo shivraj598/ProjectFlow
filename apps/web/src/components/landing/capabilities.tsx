@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, CalendarCheck2, Kanban, Layers, Scale } from "lucide-react";
 import { gsap, initGsap } from "./motion";
-import { ACCENT, FAINT, LINE, LINE_SOFT, MUTED, ON_ACCENT, TEXT } from "./tokens";
+import { ACCENT, ACCENT_SOFT, FAINT, LINE, LINE_SOFT, MUTED, TEXT } from "./tokens";
 
 const CAPABILITIES = [
   {
@@ -282,10 +282,10 @@ function KanbanMini() {
   return (
     <div className="grid grid-cols-3 gap-1.5">
       {cols.map((col, i) => (
-        <div key={col.name} className="rounded-lg bg-white/[0.03] p-1.5">
+        <div key={col.name} className="rounded-lg bg-[var(--ld-accent-soft)] p-1.5">
           <p className="mb-1.5 flex items-center justify-between font-mono text-[8px] uppercase tracking-wider" style={{ color: FAINT }}>
             {col.name}
-            <span style={{ color: i === 1 ? "#fff" : FAINT }}>{col.wip}</span>
+            <span style={{ color: i === 1 ? TEXT : FAINT }}>{col.wip}</span>
           </p>
           <div className="space-y-1">
             {Array.from({ length: col.chips }).map((_, j) => (
@@ -293,17 +293,17 @@ function KanbanMini() {
                 key={j}
                 className="cap-chip h-[18px] rounded-[5px] border"
                 style={{
-                  borderColor: "rgba(255,255,255,0.1)",
-                  background: j === 0 && i === 1 ? "#ffffff" : "rgba(255,255,255,0.08)",
+                  borderColor: LINE,
+                  background: j === 0 && i === 1 ? ACCENT : ACCENT_SOFT,
                   opacity: j === 0 && i === 1 ? 1 : undefined,
                 }}
               />
             ))}
           </div>
           {/* wip bar */}
-          <div className="mt-1.5 h-[3px] overflow-hidden rounded-full bg-white/10">
+          <div className="mt-1.5 h-[3px] overflow-hidden rounded-full bg-[var(--ld-accent-soft)]">
             <div
-              className="h-full rounded-full bg-white"
+              className="h-full rounded-full bg-[var(--ld-accent)]"
               style={{ width: i === 1 ? "100%" : i === 0 ? "50%" : "20%", opacity: i === 1 ? 1 : 0.5 }}
             />
           </div>
@@ -317,27 +317,27 @@ function BurndownMini() {
   return (
     <div className="relative">
       <svg viewBox="0 0 200 72" className="w-full" role="img" aria-label="Burndown trending down">
-        <line x1="0" y1="66" x2="200" y2="6" stroke="#fff" strokeOpacity="0.18" strokeDasharray="3 5" strokeWidth="1" />
+        <line x1="0" y1="66" x2="200" y2="6" stroke="var(--ld-accent)" strokeOpacity="0.25" strokeDasharray="3 5" strokeWidth="1" />
         {[16, 32, 48].map((y) => (
-          <line key={y} x1="0" y1={y} x2="200" y2={y} stroke="#fff" strokeOpacity="0.06" strokeWidth="1" />
+          <line key={y} x1="0" y1={y} x2="200" y2={y} stroke="var(--ld-accent)" strokeOpacity="0.1" strokeWidth="1" />
         ))}
         <polyline
           points="0,62 40,50 80,42 120,28 160,30 188,12"
           fill="none"
-          stroke="#fff"
+          stroke="var(--ld-accent)"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeDasharray="260"
           className="cap-draw"
         />
-        <circle cx="188" cy="12" r="3.5" fill="#fff" />
-        <circle cx="188" cy="12" r="7" fill="none" stroke="#fff" strokeOpacity="0.3" />
-        <circle cx="0" cy="62" r="2.5" fill="#666" />
+        <circle cx="188" cy="12" r="3.5" fill="var(--ld-accent)" />
+        <circle cx="188" cy="12" r="7" fill="none" stroke="var(--ld-accent)" strokeOpacity="0.3" />
+        <circle cx="0" cy="62" r="2.5" fill="var(--ld-faint)" />
       </svg>
       <div className="mt-1 flex items-center justify-between font-mono text-[8.5px]" style={{ color: FAINT }}>
         <span>-3 pts vs ideal</span>
-        <span style={{ color: "#fff" }}>● on track</span>
+        <span style={{ color: TEXT }}>● on track</span>
       </div>
     </div>
   );
@@ -345,19 +345,19 @@ function BurndownMini() {
 
 function BacklogMini() {
   const rows = [
-    { dot: "#fff", label: "Auth refresh flow", pts: "5" },
-    { dot: "#a3a3a3", label: "Empty states polish", pts: "3" },
-    { dot: "#666", label: "Export to CSV", pts: "2" },
+    { dot: ACCENT, label: "Auth refresh flow", pts: "5" },
+    { dot: MUTED, label: "Empty states polish", pts: "3" },
+    { dot: FAINT, label: "Export to CSV", pts: "2" },
   ];
   return (
     <div className="space-y-1.5">
       {rows.map((r) => (
-        <div key={r.label} className="cap-chip flex items-center gap-2 rounded-lg border px-2 py-[7px]" style={{ borderColor: "rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)" }}>
+        <div key={r.label} className="cap-chip flex items-center gap-2 rounded-lg border px-2 py-[7px]" style={{ borderColor: LINE_SOFT, background: ACCENT_SOFT }}>
           <span className="size-1.5 shrink-0 rounded-full" style={{ background: r.dot }} />
           <span className="min-w-0 flex-1 truncate text-[11px] font-medium" style={{ color: TEXT }}>
             {r.label}
           </span>
-          <span className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[8px]" style={{ color: MUTED }}>
+          <span className="rounded bg-[var(--ld-accent-soft)] px-1.5 py-0.5 font-mono text-[8px]" style={{ color: MUTED }}>
             {r.pts} pts
           </span>
         </div>
@@ -380,14 +380,14 @@ function AnalyticsMini() {
             className="cap-vbar flex-1 rounded-[4px]"
             style={{
               height: `${h}%`,
-              background: i === 5 ? "#ffffff" : "rgba(255,255,255,0.22)",
+              background: i === 5 ? ACCENT : ACCENT_SOFT,
             }}
           />
         ))}
       </div>
       <div className="mt-2 flex items-center justify-between font-mono text-[8.5px]" style={{ color: FAINT }}>
         <span>7D VELOCITY</span>
-        <span style={{ color: "#fff" }}>42 PTS ▲ 18%</span>
+        <span style={{ color: TEXT }}>42 PTS ▲ 18%</span>
       </div>
     </div>
   );
