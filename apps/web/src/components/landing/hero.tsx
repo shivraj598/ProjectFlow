@@ -1,16 +1,68 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { ArrowRight, Check, Play, Sparkles, Star } from "lucide-react";
+import { ArrowRight, Check, MousePointer2, Play, Sparkles, Star } from "lucide-react";
 import { gsap, initGsap } from "./motion";
 import { FAINT, INK, LINE, LINE_SOFT, MUTED, TEXT } from "./tokens";
 
 /* ------------------------------------------------------------------ */
-/* Hero — centered copy (top half) + dashboard rising from bottom half */
+/* Hero — modern centered + interactive dashboard covering bottom half */
 /* ------------------------------------------------------------------ */
+
+const VIEWS = [
+  {
+    id: "dashboard",
+    label: "Dashboard",
+    src: "/images/03-dashboard.png",
+    alt: "ProjectFlow analytics dashboard — status, priority, workload and 14-day trend",
+    hotspots: [
+      { x: "22%", y: "34%", title: "Workload, live", desc: "See who's overloaded before the sprint breaks." },
+      { x: "64%", y: "30%", title: "14-day trend", desc: "Velocity, honest and updating in real time." },
+      { x: "46%", y: "68%", title: "Priority split", desc: "Urgent vs high vs the rest — one glance." },
+    ],
+  },
+  {
+    id: "board",
+    label: "Board",
+    src: "/images/04-board.png",
+    alt: "Kanban board with drag-and-drop columns",
+    hotspots: [
+      { x: "30%", y: "40%", title: "Drag & drop", desc: "Move cards with a flick. WIP enforced." },
+      { x: "62%", y: "52%", title: "Inline create", desc: "New task without leaving the flow." },
+    ],
+  },
+  {
+    id: "sprint",
+    label: "Sprint",
+    src: "/images/09-sprint-detail.png",
+    alt: "Sprint detail page with burndown chart",
+    hotspots: [
+      { x: "58%", y: "42%", title: "Burndown", desc: "Ideal vs actual. No Friday number-pushing." },
+      { x: "26%", y: "30%", title: "Commitment", desc: "Points locked, scope visible." },
+    ],
+  },
+  {
+    id: "backlog",
+    label: "Backlog",
+    src: "/images/07-backlog.png",
+    alt: "Project backlog with planned sprints",
+    hotspots: [
+      { x: "36%", y: "46%", title: "Unscheduled queue", desc: "Prioritise, estimate, pull when ready." },
+      { x: "68%", y: "36%", title: "Sprint planner", desc: "Drag into the next cycle in seconds." },
+    ],
+  },
+];
 
 export function LandingHero() {
   const root = useRef<HTMLElement>(null);
+  const tiltRef = useRef<HTMLDivElement>(null);
+  const shotWrap = useRef<HTMLDivElement>(null);
+  const glareRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const view = VIEWS[active];
 
+  /* entrance + ambient */
   useEffect(() => {
     initGsap();
     const mm = gsap.matchMedia();
@@ -22,8 +74,8 @@ export function LandingHero() {
         .fromTo(".hero-proof", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, "-=0.4")
         .fromTo(
           ".hero-shot",
-          { y: 120, opacity: 0, scale: 0.96, transformOrigin: "50% 0%" },
-          { y: 0, opacity: 1, scale: 1, duration: 1.3, ease: "power4.out" },
+          { y: 140, opacity: 0, scale: 0.96, transformOrigin: "50% 0%" },
+          { y: 0, opacity: 1, scale: 1, duration: 1.35, ease: "power4.out" },
           "-=0.5"
         )
         .fromTo(".hero-float", { opacity: 0, scale: 0.85, y: 10 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, stagger: 0.12 }, "-=0.7")
@@ -38,6 +90,19 @@ export function LandingHero() {
         stagger: { each: 0.6, yoyo: true },
       });
 
+      // live cursor drift across the dashboard
+      if (cursorRef.current) {
+        gsap.to(cursorRef.current, {
+          x: 220,
+          y: 60,
+          duration: 3.2,
+          ease: "power2.inOut",
+          yoyo: true,
+          repeat: -1,
+          repeatDelay: 0.8,
+        });
+      }
+
       gsap.fromTo(
         ".hero-ghost",
         { xPercent: -8 },
@@ -48,19 +113,8 @@ export function LandingHero() {
         }
       );
 
-      // dashboard parallax — sinks slightly as you scroll into capabilities
       gsap.to(".hero-shot", {
-        yPercent: 6,
-        ease: "none",
-        scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
-      });
-      gsap.to(".float-chip-a", {
-        y: -50,
-        ease: "none",
-        scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
-      });
-      gsap.to(".float-chip-b", {
-        y: -24,
+        yPercent: 4,
         ease: "none",
         scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
       });
@@ -68,42 +122,88 @@ export function LandingHero() {
     return () => mm.revert();
   }, []);
 
+  /* image crossfade on view switch */
+  useEffect(() => {
+    if (!imgRef.current) return;
+    gsap.fromTo(
+      imgRef.current,
+      { opacity: 0.2, scale: 1.015 },
+      { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out", overwrite: "auto" }
+    );
+  }, [active]);
+
+  /* interactive 3D tilt + glare (desktop, pointer-fine only) */
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    if (!tiltRef.current || !shotWrap.current) return;
+    initGsap();
+    const xTo = gsap.quickTo(tiltRef.current, "rotationY", { duration: 0.7, ease: "power3.out" });
+    const yTo = gsap.quickTo(tiltRef.current, "rotationX", { duration: 0.7, ease: "power3.out" });
+    const el = shotWrap.current;
+    const onMove = (e: PointerEvent) => {
+      const r = el.getBoundingClientRect();
+      const nx = (e.clientX - r.left) / r.width - 0.5;
+      const ny = (e.clientY - r.top) / r.height - 0.5;
+      xTo(nx * 10);
+      yTo(-ny * 7);
+      if (glareRef.current) {
+        glareRef.current.style.background = `radial-gradient(420px circle at ${(nx + 0.5) * 100}% ${(ny + 0.5) * 100}%, rgba(255,255,255,0.12), transparent 65%)`;
+      }
+    };
+    const onLeave = () => {
+      xTo(0);
+      yTo(0);
+    };
+    el.addEventListener("pointermove", onMove);
+    el.addEventListener("pointerleave", onLeave);
+    return () => {
+      el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerleave", onLeave);
+    };
+  }, []);
+
   return (
     <section ref={root} id="top" className="relative overflow-hidden" style={{ background: INK }}>
-      {/* radiance */}
+      {/* ambient background */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 42% at 50% 0%, rgba(255,255,255,0.07), transparent 62%), radial-gradient(40% 30% at 12% 12%, rgba(255,255,255,0.03), transparent 60%)",
+            "radial-gradient(62% 44% at 50% -4%, rgba(255,255,255,0.09), transparent 62%), radial-gradient(36% 28% at 12% 10%, rgba(255,255,255,0.04), transparent 60%), radial-gradient(36% 28% at 88% 14%, rgba(255,255,255,0.05), transparent 60%)",
         }}
       />
-      {/* blueprint grid */}
+      {/* beam */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.14]"
+        className="pointer-events-none absolute left-1/2 top-0 h-[560px] w-[900px] -translate-x-1/2"
+        style={{ background: "conic-gradient(from 180deg at 50% 0%, transparent 0deg, rgba(255,255,255,0.06) 20deg, transparent 40deg)", filter: "blur(10px)" }}
+      />
+      {/* grid */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.13]"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
           backgroundSize: "72px 72px",
-          maskImage: "radial-gradient(78% 60% at 50% 18%, black 10%, transparent 75%)",
-          WebkitMaskImage: "radial-gradient(78% 60% at 50% 18%, black 10%, transparent 75%)",
+          maskImage: "radial-gradient(80% 58% at 50% 16%, black 10%, transparent 76%)",
+          WebkitMaskImage: "radial-gradient(80% 58% at 50% 16%, black 10%, transparent 76%)",
         }}
       />
-      {/* ghost wordmark */}
+      {/* ghost */}
       <div
         aria-hidden
-        className="hero-ghost pointer-events-none absolute left-1/2 top-[6%] -translate-x-1/2 select-none text-[20vw] font-extrabold leading-none tracking-[-0.05em] opacity-[0.04] will-change-transform"
+        className="hero-ghost pointer-events-none absolute left-1/2 top-[5%] -translate-x-1/2 select-none text-[20vw] font-extrabold leading-none tracking-[-0.05em] opacity-[0.035] will-change-transform"
         style={{ WebkitTextStroke: "1px #fff", color: "transparent", whiteSpace: "nowrap" }}
       >
         FLOW
       </div>
 
-      {/* ================= TOP HALF — copy ================= */}
+      {/* ================= TOP — copy ================= */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pt-32 text-center sm:px-6 lg:pt-40">
         <div className="hero-kicker mb-7 flex items-center justify-center gap-4">
-          <span className="flex items-center gap-2.5 rounded-full border px-3.5 py-1.5" style={{ borderColor: LINE, background: "rgba(255,255,255,0.03)" }}>
+          <span className="flex items-center gap-2.5 rounded-full border px-3.5 py-1.5 backdrop-blur-md" style={{ borderColor: LINE, background: "rgba(255,255,255,0.04)" }}>
             <span className="relative flex size-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-70" />
               <span className="relative inline-flex size-2 rounded-full bg-white" />
@@ -117,7 +217,7 @@ export function LandingHero() {
           </span>
         </div>
 
-        <h1 className="mx-auto text-[clamp(3rem,8.4vw,6.6rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.045em]" style={{ color: TEXT }}>
+        <h1 className="mx-auto text-[clamp(2.9rem,8vw,6.4rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.045em]" style={{ color: TEXT }}>
           <span className="block overflow-hidden pb-1">
             <span className="hero-word block will-change-transform">Manage your</span>
           </span>
@@ -130,7 +230,7 @@ export function LandingHero() {
             </span>
           </span>
           <span className="block overflow-hidden pb-2">
-            <span className="hero-word inline-block uppercase" style={{ background: "#ffffff", color: "#000000", padding: "0 0.16em 0.05em" }}>
+            <span className="hero-word inline-block uppercase" style={{ background: "#ffffff", color: "#000000", padding: "0 0.16em 0.05em", boxShadow: "0 20px 80px rgba(255,255,255,0.18)" }}>
               Effectively.
             </span>
           </span>
@@ -145,7 +245,7 @@ export function LandingHero() {
           <Link
             to="/register"
             className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ background: "#ffffff", color: "#000000" }}
+            style={{ background: "#ffffff", color: "#000000", boxShadow: "0 12px 50px rgba(255,255,255,0.22)" }}
           >
             Start free
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -156,8 +256,8 @@ export function LandingHero() {
               e.preventDefault();
               document.getElementById("showcase")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="group inline-flex items-center gap-2 rounded-full border px-7 py-3.5 text-[14px] font-semibold transition-colors hover:bg-white/10"
-            style={{ borderColor: LINE, color: TEXT }}
+            className="group inline-flex items-center gap-2 rounded-full border px-7 py-3.5 text-[14px] font-semibold backdrop-blur-md transition-colors hover:bg-white/10"
+            style={{ borderColor: LINE, color: TEXT, background: "rgba(255,255,255,0.02)" }}
           >
             <Play className="size-4 fill-current" />
             Watch it move
@@ -181,58 +281,122 @@ export function LandingHero() {
             Loved by early teams · No credit card
           </span>
         </div>
+
+        {/* interactive hint */}
+        <p className="mt-8 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em]" style={{ color: FAINT }}>
+          <MousePointer2 className="size-3.5" />
+          Hover the dashboard — tilt · hotspots · switch views
+        </p>
       </div>
 
-      {/* ================= BOTTOM HALF — dashboard ================= */}
-      <div className="relative z-10 mx-auto mt-14 w-full max-w-6xl px-4 sm:px-6">
-        <div className="relative">
-          {/* floating readout chips */}
-          <div aria-hidden className="float-chip-a hero-float pointer-events-none absolute -top-6 left-0 z-20 hidden select-none md:block lg:-left-8">
+      {/* ================= BOTTOM HALF — interactive dashboard ================= */}
+      <div className="relative z-10 mx-auto mt-8 w-full max-w-7xl px-4 sm:px-6" style={{ perspective: "1600px" }}>
+        {/* view switcher */}
+        <div className="mb-4 flex justify-center gap-2 overflow-x-auto pb-1">
+          {VIEWS.map((v, i) => (
+            <button
+              key={v.id}
+              onClick={() => setActive(i)}
+              className="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-[12.5px] font-medium backdrop-blur-md transition-all duration-300"
+              style={{
+                borderColor: i === active ? "#fff" : LINE,
+                background: i === active ? "#fff" : "rgba(255,255,255,0.03)",
+                color: i === active ? "#000" : MUTED,
+              }}
+            >
+              <span className="font-mono text-[10px]" style={{ opacity: 0.7 }}>
+                0{i + 1}
+              </span>
+              {v.label}
+              {i === active && <span className="size-1.5 animate-pulse rounded-full bg-black" />}
+            </button>
+          ))}
+        </div>
+
+        <div ref={shotWrap} className="relative" style={{ transformStyle: "preserve-3d" }}>
+          {/* floating chips */}
+          <div aria-hidden className="float-chip-a hero-float pointer-events-none absolute -top-8 left-2 z-30 hidden select-none md:block lg:left-6">
             <Chip title="Sprint 4 · burndown" value="On track" icon={<Sparkles className="size-3.5" />} fine="-3 pts vs ideal" />
           </div>
-          <div aria-hidden className="float-chip-b hero-float pointer-events-none absolute -top-2 right-0 z-20 hidden select-none md:block lg:-right-8">
+          <div aria-hidden className="float-chip-b hero-float pointer-events-none absolute -top-4 right-2 z-30 hidden select-none md:block lg:right-6">
             <Chip title="TASK-104" value="Moved to Done" icon={<Check className="size-3.5" />} fine="Just now · Ava" accent />
           </div>
 
           {/* glow */}
-          <div aria-hidden className="pointer-events-none absolute -inset-x-8 top-8 bottom-0 blur-3xl" style={{ background: "radial-gradient(60% 60% at 50% 20%, rgba(255,255,255,0.09), transparent 70%)" }} />
+          <div aria-hidden className="pointer-events-none absolute -inset-x-10 top-10 bottom-0 blur-3xl" style={{ background: "radial-gradient(60% 60% at 50% 18%, rgba(255,255,255,0.12), transparent 70%)" }} />
 
-          {/* browser frame */}
-          <div className="hero-shot relative overflow-hidden rounded-t-2xl border border-b-0 shadow-[0_60px_160px_rgba(0,0,0,0.85)] will-change-transform" style={{ borderColor: LINE, background: "#060606" }}>
-            {/* chrome bar */}
-            <div className="flex items-center gap-3 border-b px-4 py-3" style={{ borderColor: LINE_SOFT, background: "#0a0a0a" }}>
-              <span className="flex gap-1.5">
-                <i className="size-2.5 rounded-full bg-white/20" />
-                <i className="size-2.5 rounded-full bg-white/20" />
-                <i className="size-2.5 rounded-full bg-white" />
-              </span>
-              <span className="mx-auto hidden w-full max-w-xs truncate rounded-full border px-3 py-1 text-center font-mono text-[10.5px] sm:block" style={{ borderColor: LINE_SOFT, color: FAINT }}>
-                projectflow.app / dashboard
-              </span>
-              <span className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10.5px] font-medium" style={{ borderColor: LINE_SOFT, color: "#fff" }}>
-                <span className="size-1.5 animate-pulse rounded-full bg-white" /> Live
-              </span>
+          {/* tilt layer — covers bottom half, bleeds to section edge */}
+          <div ref={tiltRef} className="hero-shot relative will-change-transform" style={{ transformStyle: "preserve-3d" }}>
+            <div className="relative overflow-hidden rounded-t-2xl border border-b-0 shadow-[0_60px_180px_rgba(0,0,0,0.9)]" style={{ borderColor: LINE, background: "#060606" }}>
+              {/* chrome */}
+              <div className="flex items-center gap-3 border-b px-4 py-3" style={{ borderColor: LINE_SOFT, background: "rgba(10,10,10,0.95)" }}>
+                <span className="flex gap-1.5">
+                  <i className="size-2.5 rounded-full bg-white/20" />
+                  <i className="size-2.5 rounded-full bg-white/20" />
+                  <i className="size-2.5 rounded-full bg-white" />
+                </span>
+                <span className="mx-auto hidden w-full max-w-xs truncate rounded-full border px-3 py-1 text-center font-mono text-[10.5px] sm:block" style={{ borderColor: LINE_SOFT, color: FAINT }}>
+                  projectflow.app / {view.label.toLowerCase()}
+                </span>
+                <span className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10.5px] font-medium" style={{ borderColor: LINE_SOFT, color: "#fff" }}>
+                  <span className="size-1.5 animate-pulse rounded-full bg-white" /> Live · {view.label}
+                </span>
+              </div>
+
+              {/* interactive screenshot */}
+              <div className="group/shot relative cursor-crosshair overflow-hidden">
+                <img
+                  ref={imgRef}
+                  key={view.src}
+                  src={view.src}
+                  alt={view.alt}
+                  className="block aspect-[16/9] w-full object-cover object-top transition-transform duration-700"
+                  loading="eager"
+                  draggable={false}
+                />
+                {/* mouse glare */}
+                <div ref={glareRef} aria-hidden className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/shot:opacity-100" />
+                {/* hover zoom veil */}
+                <div aria-hidden className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover/shot:opacity-100" style={{ boxShadow: "inset 0 0 140px rgba(0,0,0,0.5)" }} />
+
+                {/* simulated live cursor */}
+                <div ref={cursorRef} aria-hidden className="pointer-events-none absolute left-[18%] top-[38%] z-20 hidden sm:block">
+                  <div className="flex items-center gap-2 rounded-full border bg-black/85 py-1.5 pl-2 pr-3 shadow-2xl backdrop-blur-md" style={{ borderColor: "#fff" }}>
+                    <MousePointer2 className="size-3.5 fill-white text-white" />
+                    <span className="text-[10.5px] font-semibold text-white">Ava is dragging TASK-104</span>
+                  </div>
+                </div>
+
+                {/* hotspots */}
+                {view.hotspots.map((h) => (
+                  <div key={h.title} className="group/hot absolute z-20" style={{ left: h.x, top: h.y }}>
+                    <button
+                      aria-label={h.title}
+                      className="relative flex size-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border bg-black/80 backdrop-blur-md transition-transform hover:scale-125"
+                      style={{ borderColor: "#fff" }}
+                    >
+                      <span className="absolute inset-0 animate-ping rounded-full bg-white/30" />
+                      <span className="relative size-1.5 rounded-full bg-white" />
+                    </button>
+                    {/* tooltip */}
+                    <div className="pointer-events-none absolute left-4 top-4 w-52 -translate-y-1/2 rounded-xl border p-3 opacity-0 shadow-2xl backdrop-blur-xl transition-all duration-300 group-hover/hot:pointer-events-auto group-hover/hot:opacity-100" style={{ borderColor: LINE, background: "rgba(8,8,8,0.94)" }}>
+                      <p className="text-[12px] font-semibold text-white">{h.title}</p>
+                      <p className="mt-1 text-[11.5px] leading-snug" style={{ color: MUTED }}>{h.desc}</p>
+                    </div>
+                  </div>
+                ))}
+
+                {/* bottom fade — dashboard melts into next section */}
+                <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-28" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0.92) 100%)" }} />
+              </div>
             </div>
-            {/* screenshot */}
-            <div className="relative">
-              <img
-                src="/images/03-dashboard.png"
-                alt="ProjectFlow analytics dashboard — status, priority, workload and 14-day trend"
-                className="block w-full object-cover object-top"
-                loading="eager"
-              />
-              {/* bottom fade into next section */}
-              <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-40" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.55) 70%, #000 100%)" }} />
-              {/* side vignette */}
-              <div aria-hidden className="pointer-events-none absolute inset-0" style={{ boxShadow: "inset 0 0 120px rgba(0,0,0,0.45)" }} />
-            </div>
+
+            {/* reflection hairline */}
+            <div aria-hidden className="h-px w-full" style={{ background: "linear-gradient(to right, transparent, rgba(255,255,255,0.45), transparent)" }} />
           </div>
-
-          {/* reflection hairline */}
-          <div aria-hidden className="h-px w-full" style={{ background: "linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent)" }} />
         </div>
 
-        {/* data strip — transition into capabilities */}
+        {/* data strip attached to dashboard bottom */}
         <div className="hero-rail relative z-10 grid grid-cols-2 gap-px border-x border-b sm:grid-cols-3" style={{ borderColor: LINE, background: LINE }}>
           <StripCell label="System status" value="Online · 14/42 pts" live />
           <StripCell label="Delta (real-time)" value="~0 ms" hideOnMobile />
