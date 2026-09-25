@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { gsap, initGsap } from "./motion";
-import { FAINT, INK, LINE, LINE_SOFT, MUTED, TEXT } from "./tokens";
+import { ACCENT, ACCENT_SOFT, FAINT, INK, LINE, LINE_SOFT, MUTED, ON_ACCENT, PANEL, TEXT } from "./tokens";
 
 const SLIDES = [
   {
