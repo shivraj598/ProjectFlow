@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router";
-import { ArrowRight, Loader2, Lock, Mail, User } from "lucide-react";
+import { ArrowRight, Loader2, Lock, Mail, User as UserIcon } from "lucide-react";
 import { post } from "@/lib/api";
 import { useAuthStore } from "@/stores/auth-store";
 import type { User } from "@/stores/auth-store";
@@ -79,7 +79,7 @@ export function RegisterPage() {
           value={name}
           onChange={setName}
           placeholder="Your name"
-          icon={<User className="size-4" />}
+          icon={<UserIcon className="size-4" />}
         />
         <Field
           id="email"
