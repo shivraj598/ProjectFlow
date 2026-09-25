@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, CalendarCheck2, Kanban, Layers, Scale } from "lucide-react";
 import { gsap, initGsap } from "./motion";
-import { FAINT, LINE, LINE_SOFT, MUTED, TEXT } from "./tokens";
+import { ACCENT, FAINT, LINE, LINE_SOFT, MUTED, ON_ACCENT, TEXT } from "./tokens";
 
 const CAPABILITIES = [
   {
@@ -126,7 +126,7 @@ export function LandingCapabilities() {
       ref={root}
       id="capabilities"
       className="relative border-y"
-      style={{ borderColor: LINE, background: "#000000" }}
+      style={{ borderColor: LINE, background: INK }}
     >
       <div className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:py-20">
         {/* ---------- header ---------- */}
@@ -136,15 +136,15 @@ export function LandingCapabilities() {
               className="cap-head mb-5 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em]"
               style={{ color: FAINT }}
             >
-              <span className="inline-block h-px w-8 bg-white/60" />
+              <span className="inline-block h-px w-8 bg-[var(--ld-accent)] opacity-60" />
               [ 02 — Capabilities ]
               <span
                 className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] tracking-[0.12em]"
                 style={{ borderColor: LINE, color: TEXT }}
               >
                 <span className="relative flex size-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-70" />
-                  <span className="relative inline-flex size-1.5 rounded-full bg-white" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--ld-accent)] opacity-70" />
+                  <span className="relative inline-flex size-1.5 rounded-full bg-[var(--ld-accent)]" />
                 </span>
                 LIVE SYSTEM
               </span>
@@ -155,7 +155,7 @@ export function LandingCapabilities() {
             >
               Four primitives,
               <br />
-              <span className="inline-block bg-white px-2 text-black">one flow.</span>
+              <span className="inline-block bg-[var(--ld-accent)] px-2 text-[var(--ld-on-accent)]">one flow.</span>
             </h2>
           </div>
           <p className="cap-head max-w-sm text-[14.5px] leading-relaxed" style={{ color: MUTED }}>
@@ -172,12 +172,12 @@ export function LandingCapabilities() {
           {CAPABILITIES.map((c) => (
             <article
               key={c.title}
-              className="cap-item group relative flex min-h-[400px] flex-col bg-[#050505] p-6 transition-colors duration-300 hover:bg-[#0a0a0a]"
+              className="cap-item group relative flex min-h-[400px] flex-col bg-[var(--ld-ink)] p-6 transition-colors duration-300 hover:bg-[var(--ld-panel)]"
             >
               {/* top active hairline */}
               <span
                 aria-hidden
-                className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-white transition-transform duration-500 group-hover:scale-x-100"
+                className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-[var(--ld-accent)] transition-transform duration-500 group-hover:scale-x-100"
               />
               {/* hover glow */}
               <div
@@ -197,15 +197,15 @@ export function LandingCapabilities() {
                   className="rounded-full border px-2.5 py-1 font-mono text-[10px] tracking-[0.1em]"
                   style={{ borderColor: LINE_SOFT, color: FAINT }}
                 >
-                  <span className="mr-1.5 text-[13px] text-white">{c.stat}</span>
+                  <span className="mr-1.5 text-[13px]" style={{ color: TEXT }}>{c.stat}</span>
                   {c.statLabel}
                 </span>
               </div>
 
               <div className="relative mt-5">
                 <span
-                  className="flex size-10 items-center justify-center rounded-xl border transition-all duration-300 group-hover:bg-white group-hover:text-black"
-                  style={{ borderColor: LINE, color: "#fff" }}
+                  className="flex size-10 items-center justify-center rounded-xl border transition-all duration-300 group-hover:bg-[var(--ld-accent)] group-hover:text-[var(--ld-on-accent)]"
+                  style={{ borderColor: LINE, color: TEXT }}
                 >
                   <c.icon className="size-[18px]" />
                 </span>
@@ -229,8 +229,8 @@ export function LandingCapabilities() {
                   <span className="font-mono text-[9px] uppercase tracking-[0.16em]" style={{ color: FAINT }}>
                     {c.kbd} · preview
                   </span>
-                  <span className="flex items-center gap-1.5 font-mono text-[9px] tracking-[0.12em]" style={{ color: "#fff" }}>
-                    <span className="size-1 animate-pulse rounded-full bg-white" />
+                  <span className="flex items-center gap-1.5 font-mono text-[9px] tracking-[0.12em]" style={{ color: TEXT }}>
+                    <span className="size-1 animate-pulse rounded-full bg-[var(--ld-accent)]" />
                     {c.tint}
                   </span>
                 </div>
@@ -249,7 +249,7 @@ export function LandingCapabilities() {
                   ⌘{c.index} — Open
                 </span>
                 <span
-                  className="flex size-7 items-center justify-center rounded-full border opacity-40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-white group-hover:bg-white group-hover:text-black group-hover:opacity-100"
+                  className="flex size-7 items-center justify-center rounded-full border opacity-40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:border-[var(--ld-accent)] group-hover:bg-[var(--ld-accent)] group-hover:text-[var(--ld-on-accent)] group-hover:opacity-100"
                   style={{ borderColor: LINE }}
                 >
                   <ArrowUpRight className="size-3.5" />
