@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, BadgeCheck, Quote, Star } from "lucide-react";
 import { gsap, initGsap } from "./motion";
-import { FAINT, LINE, LINE_SOFT, MUTED, TEXT } from "./tokens";
+import { ACCENT, FAINT, INK, LINE, LINE_SOFT, MUTED, ON_ACCENT, PANEL, PANEL_2, TEXT } from "./tokens";
 
 const QUOTES = [
   {
@@ -99,7 +99,7 @@ export function LandingTestimonials() {
               className="t-head mb-5 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em]"
               style={{ color: FAINT }}
             >
-              <span className="inline-block h-px w-8 bg-white/60" />
+              <span className="inline-block h-px w-8 bg-[var(--ld-accent)] opacity-60" />
               [ 05 — Field notes ]
             </p>
             <h2
@@ -108,7 +108,7 @@ export function LandingTestimonials() {
             >
               Quiet teams, louder
               <br />
-              <span className="inline-block bg-white px-2 text-black">results.</span>
+              <span className="inline-block bg-[var(--ld-accent)] px-2 text-[var(--ld-on-accent)]">results.</span>
             </h2>
             {/* social proof row */}
             <div className="t-head mt-6 flex flex-wrap items-center gap-4">
@@ -117,14 +117,14 @@ export function LandingTestimonials() {
                   <span
                     key={q.initials}
                     className="flex size-8 items-center justify-center rounded-full border text-[10px] font-bold"
-                    style={{ background: "#fff", color: "#000", borderColor: "#000" }}
+                    style={{ background: ACCENT, color: ON_ACCENT, borderColor: INK }}
                   >
                     {q.initials}
                   </span>
                 ))}
                 <span
                   className="flex size-8 items-center justify-center rounded-full border text-[9px] font-bold"
-                  style={{ background: "#111", color: "#fff", borderColor: LINE }}
+                    style={{ background: PANEL_2, color: TEXT, borderColor: LINE }}
                 >
                   +2k
                 </span>
@@ -132,7 +132,7 @@ export function LandingTestimonials() {
               <div className="flex items-center gap-2">
                 <span className="flex gap-0.5" aria-label="5 out of 5 stars">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="size-3.5 fill-white text-white" />
+                    <Star key={i} className="size-3.5 fill-[var(--ld-accent)] text-[var(--ld-accent)]" />
                   ))}
                 </span>
                 <span className="text-[12.5px] font-medium" style={{ color: TEXT }}>
@@ -164,11 +164,11 @@ export function LandingTestimonials() {
           {QUOTES.map((q) => (
             <figure
               key={q.name}
-              className="quote-card group relative flex min-h-[380px] flex-col bg-[#050505] p-6 transition-colors duration-300 hover:bg-[#0a0a0a] sm:p-7"
+              className="quote-card group relative flex min-h-[380px] flex-col bg-[var(--ld-ink)] p-6 transition-colors duration-300 hover:bg-[var(--ld-panel)] sm:p-7"
             >
               <span
                 aria-hidden
-                className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-white transition-transform duration-500 group-hover:scale-x-100"
+                className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-[var(--ld-accent)] transition-transform duration-500 group-hover:scale-x-100"
               />
               <div
                 aria-hidden
@@ -181,8 +181,8 @@ export function LandingTestimonials() {
 
               <div className="relative flex items-start justify-between">
                 <span
-                  className="flex size-9 items-center justify-center rounded-xl border transition-all duration-300 group-hover:bg-white group-hover:text-black"
-                  style={{ borderColor: LINE, color: "#fff" }}
+                  className="flex size-9 items-center justify-center rounded-xl border transition-all duration-300 group-hover:bg-[var(--ld-accent)] group-hover:text-[var(--ld-on-accent)]"
+                  style={{ borderColor: LINE, color: TEXT }}
                 >
                   <Quote className="size-4 fill-current" />
                 </span>
@@ -193,7 +193,7 @@ export function LandingTestimonials() {
 
               <div className="relative mt-5 flex gap-0.5" aria-label="5 stars">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="size-3 fill-white/90 text-white/90" />
+                  <Star key={i} className="size-3 fill-[var(--ld-accent)] text-[var(--ld-accent)]" />
                 ))}
               </div>
 
@@ -206,9 +206,9 @@ export function LandingTestimonials() {
               {/* metric */}
               <div
                 className="relative mt-5 flex items-baseline gap-2 rounded-xl border px-3 py-2.5"
-                style={{ borderColor: LINE_SOFT, background: "rgba(255,255,255,0.025)" }}
+                style={{ borderColor: LINE_SOFT, background: ACCENT_SOFT }}
               >
-                <span className="bg-white px-1.5 text-[15px] font-bold tracking-tight text-black">
+                <span className="bg-[var(--ld-accent)] px-1.5 text-[15px] font-bold tracking-tight text-[var(--ld-on-accent)]">
                   {q.metric}
                 </span>
                 <span className="font-mono text-[10px] uppercase tracking-[0.14em]" style={{ color: FAINT }}>
@@ -222,21 +222,21 @@ export function LandingTestimonials() {
               >
                 <span
                   className="flex size-10 shrink-0 items-center justify-center rounded-full text-[11px] font-bold ring-1"
-                  style={{ background: "#ffffff", color: "#000000", ["--tw-ring-color" as string]: LINE } as React.CSSProperties}
+                  style={{ background: ACCENT, color: ON_ACCENT, ["--tw-ring-color" as string]: LINE } as React.CSSProperties}
                 >
                   {q.initials}
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="flex items-center gap-1.5 text-[13.5px] font-semibold" style={{ color: TEXT }}>
                     <span className="truncate">{q.name}</span>
-                    <BadgeCheck className="size-3.5 shrink-0 text-white/70" />
+                    <BadgeCheck className="size-3.5 shrink-0 text-[var(--ld-muted)]" />
                   </p>
                   <p className="truncate text-[12px]" style={{ color: FAINT }}>
                     {q.role}
                   </p>
                 </div>
                 <span
-                  className="flex size-7 shrink-0 items-center justify-center rounded-full border opacity-40 transition-all duration-300 group-hover:border-white group-hover:bg-white group-hover:text-black group-hover:opacity-100"
+                  className="flex size-7 shrink-0 items-center justify-center rounded-full border opacity-40 transition-all duration-300 group-hover:border-[var(--ld-accent)] group-hover:bg-[var(--ld-accent)] group-hover:text-[var(--ld-on-accent)] group-hover:opacity-100"
                   style={{ borderColor: LINE }}
                 >
                   <ArrowUpRight className="size-3.5" />
@@ -255,8 +255,8 @@ export function LandingTestimonials() {
             {LOGOS.map((l) => (
               <span
                 key={l}
-                className="font-mono text-[12px] font-semibold tracking-[0.18em] transition-colors hover:text-white"
-                style={{ color: "#3d3d3d" }}
+                className="font-mono text-[12px] font-semibold tracking-[0.18em] transition-colors hover:text-[var(--ld-text)]"
+                style={{ color: FAINT }}
               >
                 {l}
               </span>
