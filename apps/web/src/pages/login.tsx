@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2, Lock, Mail, Sparkles } from "lucide-react";
 import { api, post } from "@/lib/api";
 import { useAuthStore } from "@/stores/auth-store";
 import type { User } from "@/stores/auth-store";
@@ -38,6 +38,12 @@ export function LoginPage() {
     }
   }
 
+  function fillDemo() {
+    setEmail("demo@projectflow.dev");
+    setPassword("demo1234");
+    toast.success("Demo credentials filled — hit Continue");
+  }
+
   if (accessToken) return <Navigate to="/app/dashboard" replace />;
 
   return (
@@ -55,24 +61,48 @@ export function LoginPage() {
       }
     >
       <form onSubmit={submit} className="mt-7 space-y-4">
-        <Field id="email" label="Email" type="email" autoComplete="email" value={email} onChange={setEmail} placeholder="you@company.com" />
-        <Field id="password" label="Password" type="password" autoComplete="current-password" value={password} onChange={setPassword} placeholder="••••••••" />
+        <Field
+          id="email"
+          label="Email"
+          type="email"
+          autoComplete="email"
+          autoFocus
+          value={email}
+          onChange={setEmail}
+          placeholder="you@company.com"
+          icon={<Mail className="size-4" />}
+        />
+        <Field
+          id="password"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          value={password}
+          onChange={setPassword}
+          placeholder="••••••••"
+          icon={<Lock className="size-4" />}
+          toggleVisibility
+        />
         <button
           type="submit"
           disabled={busy}
-          className="flex h-10 w-full items-center justify-center gap-1.5 text-[14px] font-bold transition-all hover:opacity-90 active:scale-[0.99] disabled:opacity-50"
+          className="group relative flex h-11 w-full items-center justify-center gap-2 overflow-hidden rounded-xl text-[14px] font-bold transition-all hover:opacity-95 active:scale-[0.99] disabled:opacity-50"
           style={{ background: ACCENT, color: ON_ACCENT }}
         >
-          {busy ? <Loader2 className="size-4 animate-spin" /> : <>Continue <ArrowRight className="size-4" /></>}
+          <span aria-hidden className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+          {busy ? <Loader2 className="size-4 animate-spin" /> : <>Continue <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" /></>}
+        </button>
+        <button
+          type="button"
+          onClick={fillDemo}
+          className="flex h-10 w-full items-center justify-center gap-2 rounded-xl border text-[13px] font-medium transition-colors hover:bg-[var(--ld-accent-soft)]"
+          style={{ borderColor: LINE_SOFT, color: MUTED }}
+        >
+          <Sparkles className="size-3.5" />
+          Autofill demo account
+          <span className="font-mono text-[10px]" style={{ color: FAINT }}>demo1234</span>
         </button>
       </form>
-
-      <p className="mt-5 flex items-center justify-between border-t pt-4 font-mono text-[10px] uppercase tracking-[0.14em]" style={{ borderColor: LINE_SOFT, color: FAINT }}>
-        Demo access
-        <span className="normal-case tracking-normal" style={{ color: MUTED }}>
-          demo@projectflow.dev · demo1234
-        </span>
-      </p>
     </AuthShell>
   );
 }
