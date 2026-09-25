@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { ArrowRight, Moon, Sun } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { gsap, initGsap, smoothScrollTo } from "./motion";
 import { ACCENT, FAINT, INK, LINE, MUTED, ON_ACCENT, TEXT } from "./tokens";
+import { LandingThemeToggle } from "./theme-toggle";
 import { cn } from "./tokens";
 
 const LINKS = [
@@ -12,32 +13,11 @@ const LINKS = [
   { href: "#customers", label: "Customers", idx: "04" },
 ];
 
-/* Landing black ↔ white mode. Persists; defaults to black. */
-function useLandingTheme() {
-  const [light, setLight] = useState(false);
-  useEffect(() => {
-    const stored = localStorage.getItem("projectflow-landing-theme");
-    const initial = stored ? stored === "light" : false;
-    setLight(initial);
-    document.documentElement.classList.toggle("landing-light", initial);
-  }, []);
-  const toggle = () => {
-    setLight((prev) => {
-      const next = !prev;
-      document.documentElement.classList.toggle("landing-light", next);
-      localStorage.setItem("projectflow-landing-theme", next ? "light" : "dark");
-      return next;
-    });
-  };
-  return { light, toggle };
-}
-
 export function LandingNav() {
   const ref = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string | null>(null);
-  const { light, toggle } = useLandingTheme();
 
   useEffect(() => {
     initGsap();
@@ -155,7 +135,7 @@ export function LandingNav() {
 
         {/* actions */}
         <div className="ml-auto flex items-center gap-2 md:ml-0">
-          <ThemeToggle light={light} onToggle={toggle} />
+          <LandingThemeToggle />
 
           <span aria-hidden className="hidden h-5 w-px sm:block" style={{ background: LINE }} />
 
