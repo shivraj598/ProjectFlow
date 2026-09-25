@@ -119,19 +119,19 @@ export function LandingHero() {
 
         <h1 className="mx-auto text-[clamp(3rem,8.4vw,6.6rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.045em]" style={{ color: TEXT }}>
           <span className="block overflow-hidden pb-1">
-            <span className="hero-word block will-change-transform">Work that</span>
+            <span className="hero-word block will-change-transform">Manage your</span>
           </span>
           <span className="block overflow-hidden pb-1">
             <span
               className="hero-word block will-change-transform uppercase"
               style={{ color: "transparent", WebkitTextStroke: "2px #ffffff" }}
             >
-              moves
+              projects
             </span>
           </span>
           <span className="block overflow-hidden pb-2">
             <span className="hero-word inline-block uppercase" style={{ background: "#ffffff", color: "#000000", padding: "0 0.16em 0.05em" }}>
-              itself.
+              Effectively.
             </span>
           </span>
         </h1>
