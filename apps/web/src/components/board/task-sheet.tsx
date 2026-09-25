@@ -181,9 +181,6 @@ export function TaskSheet({ taskId, columns, members, onOpenChange }: TaskSheetP
                 <span className="text-border">/</span>
                 <span>{TYPE_META[task.type].label}</span>
               </div>
-              <Button variant="ghost" size="icon" className="size-7" onClick={() => onOpenChange(false)}>
-                <X className="size-4" />
-              </Button>
             </div>
 
             <div className="flex-1 overflow-y-auto px-5 py-4">
