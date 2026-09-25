@@ -40,7 +40,7 @@ const VIEWS = [
     src: "/images/09-sprint-detail.png",
     alt: "Single project drill-down — Sprint 1 Platform Launch inside Website Redesign",
     hotspots: [
-      { x: "30%", y: "14%", title: "Single project scope", desc: "Breadcrumbed to Website Redesign — nothing leaks across projects." },
+      { x: "30%", y: "14%", title: "Single project scope", desc: "Scoped to Website Redesign — nothing leaks across projects." },
       { x: "55%", y: "38%", title: "Sprint health", desc: "Tasks, story points and completion at a glance." },
     ],
   },
