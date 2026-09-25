@@ -197,8 +197,18 @@ export function LandingHero() {
 
       {/* ================= TOP — copy ================= */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pt-32 text-center sm:px-6 lg:pt-40">
-        <div className="hero-kicker mb-7 flex items-center justify-center gap-4">
-          <span className="flex items-center gap-2.5 rounded-full border px-3.5 py-1.5 backdrop-blur-md" style={{ borderColor: LINE, background: "rgba(255,255,255,0.04)" }}>
+        {/* side rails — desktop editorial */}
+        <span aria-hidden className="absolute left-0 top-1/2 hidden -translate-y-1/2 items-center gap-3 xl:flex" style={{ writingMode: "vertical-rl", transform: "rotate(180deg) translateY(50%)" }}>
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: FAINT }}>Scroll to explore</span>
+          <span className="mx-auto inline-block h-10 w-px bg-white/25" />
+        </span>
+        <span aria-hidden className="absolute right-0 top-1/2 hidden -translate-y-1/2 items-center gap-3 xl:flex" style={{ writingMode: "vertical-rl" }}>
+          <span className="mx-auto inline-block h-10 w-px bg-white/25" />
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: FAINT }}>PF — 01 / Realtime</span>
+        </span>
+
+        <div className="hero-kicker mb-7 flex items-center justify-center gap-3">
+          <span className="group flex items-center gap-2.5 rounded-full border py-1.5 pl-3.5 pr-2 backdrop-blur-md" style={{ borderColor: LINE, background: "rgba(255,255,255,0.04)" }}>
             <span className="relative flex size-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-70" />
               <span className="relative inline-flex size-2 rounded-full bg-white" />
@@ -206,20 +216,31 @@ export function LandingHero() {
             <span className="text-[12px] font-medium" style={{ color: MUTED }}>
               Real-time project workspace
             </span>
+            <span className="flex items-center gap-1 rounded-full bg-white px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.08em] text-black transition-transform group-hover:scale-105">
+              v2.0 <ArrowRight className="size-3" />
+            </span>
           </span>
           <span className="hidden font-mono text-[11px] tracking-[0.14em] sm:block" style={{ color: FAINT }}>
             [ SYS / PF-01 ]
           </span>
         </div>
 
-        <h1 className="mx-auto text-[clamp(2.9rem,8vw,6.4rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.045em]" style={{ color: TEXT }}>
+        <h1 className="mx-auto text-[clamp(2.9rem,8vw,6.4rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.045em]" style={{ color: TEXT }}>
           <span className="block overflow-hidden pb-1">
             <span className="hero-word block will-change-transform">Manage your</span>
           </span>
-          <span className="block overflow-hidden pb-1">
+          <span className="block overflow-hidden pb-2">
             <span
-              className="hero-word block will-change-transform uppercase"
-              style={{ color: "transparent", WebkitTextStroke: "2px #ffffff" }}
+              className="hero-word block will-change-transform normal-case italic"
+              style={{
+                fontFamily: "Georgia, 'Times New Roman', serif",
+                fontWeight: 500,
+                letterSpacing: "-0.02em",
+                background: "linear-gradient(180deg, #ffffff 30%, #8c8c8c 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
             >
               projects
             </span>
