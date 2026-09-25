@@ -198,11 +198,11 @@ export function LandingHero() {
       {/* ================= TOP — copy ================= */}
       <div className="relative z-10 mx-auto w-full max-w-6xl px-4 pt-32 text-center sm:px-6 lg:pt-40">
         {/* side rails — desktop editorial */}
-        <span aria-hidden className="absolute left-0 top-1/2 hidden -translate-y-1/2 items-center gap-3 xl:flex" style={{ writingMode: "vertical-rl", transform: "rotate(180deg) translateY(50%)" }}>
+        <span aria-hidden className="absolute left-0 top-1/2 hidden -translate-y-1/2 rotate-180 items-center gap-3 [writing-mode:vertical-rl] xl:flex">
           <span className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: FAINT }}>Scroll to explore</span>
           <span className="mx-auto inline-block h-10 w-px bg-white/25" />
         </span>
-        <span aria-hidden className="absolute right-0 top-1/2 hidden -translate-y-1/2 items-center gap-3 xl:flex" style={{ writingMode: "vertical-rl" }}>
+        <span aria-hidden className="absolute right-0 top-1/2 hidden -translate-y-1/2 items-center gap-3 [writing-mode:vertical-rl] xl:flex">
           <span className="mx-auto inline-block h-10 w-px bg-white/25" />
           <span className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: FAINT }}>PF — 01 / Realtime</span>
         </span>
