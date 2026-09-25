@@ -8,10 +8,11 @@ import { LandingTestimonials } from "@/components/landing/testimonials";
 import { LandingCta } from "@/components/landing/cta";
 import { LandingFooter } from "@/components/landing/footer";
 import { GRAIN } from "@/components/landing/tokens";
+import "@/components/landing/landing-theme.css";
 
 export function LandingPage() {
   return (
-    <main className="relative w-full max-w-full overflow-x-hidden bg-black text-white antialiased">
+    <main className="landing-root relative w-full max-w-full overflow-x-hidden bg-[var(--ld-ink)] text-[var(--ld-text)] antialiased">
       {/* film grain — fixed, pointer-events-none, never on a scrolling container */}
       <div
         className="pointer-events-none fixed inset-0 z-[60] opacity-[0.035]"
