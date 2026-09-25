@@ -64,6 +64,7 @@ export function LandingHero() {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
       tl.fromTo(".hero-word", { yPercent: 118, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1, stagger: 0.1 })
         .fromTo(".hero-kicker", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, "-=0.6")
+        .fromTo(".hero-sub", { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, "-=0.45")
         .fromTo(".hero-cta", { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.08 }, "-=0.4")
         .fromTo(".hero-proof", { y: 12, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, "-=0.4")
         .fromTo(
