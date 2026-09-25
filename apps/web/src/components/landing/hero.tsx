@@ -252,19 +252,24 @@ export function LandingHero() {
           </span>
         </h1>
 
-        <p className="mx-auto mt-6 max-w-[52ch] text-[16px] leading-relaxed" style={{ color: MUTED }}>
-          Boards, sprints and analytics that update in real time — watch a task
-          drag itself to done, then build your own in minutes.
+        <p className="hero-sub mx-auto mt-7 max-w-[54ch] text-[16px] leading-relaxed" style={{ color: MUTED }}>
+          Boards, sprints and analytics that update{" "}
+          <span className="font-semibold" style={{ color: TEXT }}>the second your team moves</span> —
+          no refresh, no status meetings.{" "}
+          <span className="font-serif italic" style={{ color: TEXT }}>Start in minutes, feel it in seconds.</span>
         </p>
 
-        <div className="hero-cta mt-8 flex flex-wrap items-center justify-center gap-3">
+        <div className="hero-cta mt-9 flex flex-wrap items-center justify-center gap-3">
           <Link
             to="/register"
-            className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold transition-all hover:opacity-90 active:scale-[0.98]"
+            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full py-2 pl-7 pr-2 text-[14px] font-semibold transition-all hover:opacity-95 active:scale-[0.98]"
             style={{ background: "#ffffff", color: "#000000", boxShadow: "0 12px 50px rgba(255,255,255,0.22)" }}
           >
+            <span aria-hidden className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             Start free
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            <span className="flex size-9 items-center justify-center rounded-full bg-black text-white transition-transform duration-300 group-hover:rotate-[-35deg]">
+              <ArrowRight className="size-4" />
+            </span>
           </Link>
           <a
             href="#showcase"
@@ -272,29 +277,39 @@ export function LandingHero() {
               e.preventDefault();
               document.getElementById("showcase")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="group inline-flex items-center gap-2 rounded-full border px-7 py-3.5 text-[14px] font-semibold backdrop-blur-md transition-colors hover:bg-white/10"
+            className="group inline-flex items-center gap-3 rounded-full border py-2 pl-2 pr-7 text-[14px] font-semibold backdrop-blur-md transition-colors hover:bg-white/10"
             style={{ borderColor: LINE, color: TEXT, background: "rgba(255,255,255,0.02)" }}
           >
-            <Play className="size-4 fill-current" />
+            <span className="flex size-9 items-center justify-center rounded-full border transition-colors duration-300 group-hover:bg-white group-hover:text-black" style={{ borderColor: LINE }}>
+              <Play className="size-3.5 fill-current" />
+            </span>
             Watch it move
+            <span className="font-mono text-[10px] font-normal" style={{ color: FAINT }}>2 min</span>
           </a>
         </div>
+        <p className="hero-cta mt-4 font-mono text-[10px] uppercase tracking-[0.22em]" style={{ color: FAINT }}>
+          Free 14-day trial · No credit card · Cancel anytime
+        </p>
 
-        <div className="hero-proof mt-7 flex flex-wrap items-center justify-center gap-4">
+        <div className="hero-proof mt-7 flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
           <div className="flex -space-x-2">
-            {["AC", "MO", "LM", "IR"].map((a) => (
-              <span key={a} className="flex size-7 items-center justify-center rounded-full border text-[9px] font-bold" style={{ background: "#fff", color: "#000", borderColor: "#000" }}>
+            {["AC", "MO", "LM", "IR"].map((a, i) => (
+              <span key={a} className="flex size-7 items-center justify-center rounded-full text-[9px] font-bold ring-2 ring-black" style={{ background: i === 0 ? "#fff" : "rgba(255,255,255,0.12)", color: i === 0 ? "#000" : "#fff", border: "1px solid rgba(255,255,255,0.25)" }}>
                 {a}
               </span>
             ))}
+            <span className="flex size-7 items-center justify-center rounded-full bg-white text-[8px] font-bold text-black ring-2 ring-black">
+              2k+
+            </span>
           </div>
+          <span className="h-4 w-px bg-white/15" aria-hidden />
           <span className="flex items-center gap-1.5">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} className="size-3.5 fill-white text-white" />
             ))}
           </span>
           <span className="text-[12.5px]" style={{ color: MUTED }}>
-            Loved by early teams · No credit card
+            <span className="font-semibold" style={{ color: TEXT }}>4.9/5</span> — loved by 2,000+ early teams
           </span>
         </div>
 
