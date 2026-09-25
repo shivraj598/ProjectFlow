@@ -129,13 +129,13 @@ export function LandingShowcase() {
         <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="show-head mb-5 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: FAINT }}>
-              <span className="inline-block h-px w-8 bg-white/60" />
+              <span className="inline-block h-px w-8 bg-[var(--ld-accent)] opacity-60" />
               [ 03 — Product tour ]
             </p>
             <h2 className="show-head text-[clamp(1.9rem,3.6vw,3rem)] font-bold leading-[1.04] tracking-[-0.02em]" style={{ color: TEXT }}>
               One workspace,
               <br />
-              <span className="inline-block bg-white px-2 text-black">four views.</span>
+              <span className="inline-block bg-[var(--ld-accent)] px-2 text-[var(--ld-on-accent)]">four views.</span>
             </h2>
           </div>
           <p className="show-head max-w-sm text-[14.5px] leading-relaxed" style={{ color: MUTED }}>
@@ -154,12 +154,12 @@ export function LandingShowcase() {
               onClick={() => setActive(i)}
               className="flex shrink-0 items-center gap-2.5 rounded-full border px-4 py-2 text-[13px] font-medium transition-all duration-300"
               style={{
-                borderColor: i === active ? "#fff" : LINE,
-                background: i === active ? "#fff" : "transparent",
-                color: i === active ? "#000" : MUTED,
+                borderColor: i === active ? ACCENT : LINE,
+                background: i === active ? ACCENT : "transparent",
+                color: i === active ? ON_ACCENT : MUTED,
               }}
             >
-              <span className="font-mono text-[11px]" style={{ color: i === active ? "#000" : FAINT }}>
+              <span className="font-mono text-[11px]" style={{ color: i === active ? ON_ACCENT : FAINT }}>
                 {t.tag}
               </span>
               {t.title}
@@ -177,11 +177,11 @@ export function LandingShowcase() {
                   key={t.tag}
                   onClick={() => setActive(i)}
                   className="group relative flex flex-col p-5 text-left transition-colors duration-300"
-                  style={{ background: on ? "#0d0d0d" : "#050505" }}
+                  style={{ background: on ? PANEL : INK }}
                 >
                   <span
                     aria-hidden
-                    className="absolute inset-y-0 left-0 w-[2px] bg-white transition-transform duration-300"
+                    className="absolute inset-y-0 left-0 w-[2px] bg-[var(--ld-accent)] transition-transform duration-300"
                     style={{ transform: on ? "scaleY(1)" : "scaleY(0)", transformOrigin: "top" }}
                   />
                   <span className="flex items-center justify-between">
@@ -194,12 +194,12 @@ export function LandingShowcase() {
                     {t.desc}
                   </span>
                   <span className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em]" style={{ color: FAINT }}>
-                    <span className="text-[13px] text-white">{t.stat}</span> {t.statLabel}
+                    <span className="text-[13px]" style={{ color: TEXT }}>{t.stat}</span> {t.statLabel}
                   </span>
                   {/* auto progress */}
                   {on && (
-                    <span className="absolute inset-x-0 bottom-0 h-[2px] overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
-                      <span key={active} className="show-autobar block h-full w-full origin-left bg-white" />
+                    <span className="absolute inset-x-0 bottom-0 h-[2px] overflow-hidden" style={{ background: ACCENT_SOFT }}>
+                      <span key={active} className="show-autobar block h-full w-full origin-left bg-[var(--ld-accent)]" />
                     </span>
                   )}
                 </button>
@@ -208,12 +208,12 @@ export function LandingShowcase() {
           </div>
 
           {/* main frame */}
-          <figure className="show-frame group relative overflow-hidden rounded-2xl border" style={{ borderColor: LINE, background: "#060606" }}>
-            <div className="flex items-center gap-3 border-b px-4 py-3" style={{ borderColor: LINE_SOFT, background: "#0a0a0a" }}>
+          <figure className="show-frame group relative overflow-hidden rounded-2xl border" style={{ borderColor: LINE, background: PANEL }}>
+            <div className="flex items-center gap-3 border-b px-4 py-3" style={{ borderColor: LINE_SOFT, background: PANEL }}>
               <span className="flex gap-1.5">
-                <i className="size-2.5 rounded-full bg-white/20" />
-                <i className="size-2.5 rounded-full bg-white/20" />
-                <i className="size-2.5 rounded-full bg-white" />
+                <i className="size-2.5 rounded-full bg-[var(--ld-faint)]" />
+                <i className="size-2.5 rounded-full bg-[var(--ld-faint)]" />
+                <i className="size-2.5 rounded-full bg-[var(--ld-accent)]" />
               </span>
               <span className="mx-auto hidden max-w-xs flex-1 truncate rounded-full border px-3 py-1 text-center font-mono text-[10.5px] sm:block" style={{ borderColor: LINE_SOFT, color: FAINT }}>
                 projectflow.app / {s.title.replace("The ", "")}
@@ -240,7 +240,7 @@ export function LandingShowcase() {
               </figcaption>
             </div>
             {/* dots */}
-            <div className="flex items-center justify-between border-t px-4 py-3" style={{ borderColor: LINE_SOFT, background: "#080808" }}>
+            <div className="flex items-center justify-between border-t px-4 py-3" style={{ borderColor: LINE_SOFT, background: PANEL }}>
               <div className="flex gap-1.5">
                 {SLIDES.map((_, i) => (
                   <button
@@ -248,21 +248,21 @@ export function LandingShowcase() {
                     aria-label={`Go to slide ${i + 1}`}
                     onClick={() => setActive(i)}
                     className="h-1.5 rounded-full transition-all duration-300"
-                    style={{ width: i === active ? 28 : 12, background: i === active ? "#fff" : "rgba(255,255,255,0.18)" }}
+                    style={{ width: i === active ? 28 : 12, background: i === active ? ACCENT : ACCENT_SOFT }}
                   />
                 ))}
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => setActive((active - 1 + SLIDES.length) % SLIDES.length)}
-                  className="rounded-full border px-4 py-1.5 text-[12px] font-medium transition-colors hover:bg-white hover:text-black"
+                  className="rounded-full border px-4 py-1.5 text-[12px] font-medium transition-colors hover:bg-[var(--ld-accent-soft)]"
                   style={{ borderColor: LINE, color: TEXT }}
                 >
                   ← Prev
                 </button>
                 <button
                   onClick={() => setActive((active + 1) % SLIDES.length)}
-                  className="rounded-full bg-white px-4 py-1.5 text-[12px] font-semibold text-black transition-opacity hover:opacity-90"
+                  className="rounded-full bg-[var(--ld-accent)] px-4 py-1.5 text-[12px] font-semibold text-[var(--ld-on-accent)] transition-opacity hover:opacity-90"
                 >
                   Next →
                 </button>
