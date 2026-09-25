@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, BadgeCheck, Quote, Star } from "lucide-react";
 import { gsap, initGsap } from "./motion";
-import { ACCENT, FAINT, INK, LINE, LINE_SOFT, MUTED, ON_ACCENT, PANEL, PANEL_2, TEXT } from "./tokens";
+import { ACCENT, ACCENT_SOFT, FAINT, INK, LINE, LINE_SOFT, MUTED, ON_ACCENT, PANEL, PANEL_2, TEXT } from "./tokens";
 
 const QUOTES = [
   {
