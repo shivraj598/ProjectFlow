@@ -1,5 +1,7 @@
 import { Link } from "react-router";
-import { FAINT, INK, LINE, LINE_SOFT, MUTED, PANEL, TEXT } from "./landing/tokens";
+import { ACCENT, FAINT, INK, LINE, LINE_SOFT, MUTED, ON_ACCENT, PANEL, TEXT } from "./landing/tokens";
+import { LandingThemeToggle } from "./landing/theme-toggle";
+import "./landing/landing-theme.css";
 
 export function AuthShell({
   badge,
@@ -15,7 +17,7 @@ export function AuthShell({
   footer: React.ReactNode;
 }) {
   return (
-    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden px-4" style={{ background: INK }}>
+    <div className="landing-root relative flex min-h-dvh items-center justify-center overflow-hidden px-4" style={{ background: INK, color: TEXT }}>
       {/* blueprint grid + radiance */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div
@@ -41,7 +43,7 @@ export function AuthShell({
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 select-none whitespace-nowrap text-[26vw] font-extrabold leading-none tracking-[-0.05em] opacity-[0.035]"
-        style={{ WebkitTextStroke: "1px #fff", color: "transparent" }}
+        style={{ WebkitTextStroke: "1px var(--ld-accent)", color: "transparent" }}
       >
         FLOW
       </div>
@@ -50,7 +52,7 @@ export function AuthShell({
         {/* mono system strip */}
         <Link to="/" className="mb-10 flex items-center justify-between">
           <span className="flex items-center gap-3">
-            <span className="flex size-7 items-center justify-center border border-[rgba(255,255,255,0.6)] text-[10px] font-bold" style={{ color: "#ffffff" }}>
+            <span className="flex size-7 items-center justify-center rounded-lg border text-[10px] font-bold" style={{ borderColor: LINE, color: TEXT }}>
               PF
             </span>
             <span className="flex flex-col leading-none">
@@ -62,8 +64,11 @@ export function AuthShell({
               </span>
             </span>
           </span>
-          <span className="hidden font-mono text-[9.5px] uppercase tracking-[0.16em] sm:block" style={{ color: FAINT }}>
-            [ AUTH / {badge} ]
+          <span className="flex items-center gap-3">
+            <span className="hidden font-mono text-[9.5px] uppercase tracking-[0.16em] sm:block" style={{ color: FAINT }}>
+              [ AUTH / {badge} ]
+            </span>
+            <LandingThemeToggle />
           </span>
         </Link>
 
@@ -72,15 +77,15 @@ export function AuthShell({
           {/* sheet header */}
           <div className="flex items-center justify-between border-b px-5 py-3" style={{ borderColor: LINE_SOFT }}>
             <div className="flex items-center gap-2.5">
-              <span className="flex size-6 items-center justify-center rounded-sm text-[9px] font-bold" style={{ background: "#ffffff", color: "#000000" }}>
+              <span className="flex size-6 items-center justify-center rounded-sm text-[9px] font-bold" style={{ background: ACCENT, color: ON_ACCENT }}>
                 PF
               </span>
               <span className="text-[12.5px] font-semibold" style={{ color: TEXT }}>
                 Access console
               </span>
             </div>
-            <span className="flex items-center gap-1.5 border px-2.5 py-1 font-mono text-[9.5px] uppercase tracking-[0.14em]" style={{ borderColor: LINE_SOFT, color: "#ffffff" }}>
-              <span className="size-1.5 rounded-full bg-white" /> {badge}
+            <span className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[9.5px] uppercase tracking-[0.14em]" style={{ borderColor: LINE_SOFT, color: TEXT }}>
+              <span className="size-1.5 animate-pulse rounded-full bg-[var(--ld-accent)]" /> {badge}
             </span>
           </div>
 
@@ -123,7 +128,7 @@ export function Field({
   return (
     <div className="space-y-1.5">
       <label htmlFor={id} className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: FAINT }}>
-        <span className="text-white/40">&gt;</span>
+        <span className="text-[var(--ld-faint)]">&gt;</span>
         {label}
       </label>
       <input
@@ -134,7 +139,7 @@ export function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="h-10 w-full border bg-black px-3 text-[14px] text-white outline-none transition-colors placeholder:text-white/25 focus:border-white/60"
+        className="h-10 w-full border bg-[var(--ld-ink)] px-3 text-[14px] text-[var(--ld-text)] outline-none transition-colors placeholder:text-[var(--ld-faint)] focus:border-[var(--ld-line)]"
         style={{ borderColor: LINE_SOFT }}
       />
     </div>
