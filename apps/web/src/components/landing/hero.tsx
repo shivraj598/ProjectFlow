@@ -12,8 +12,9 @@ const VIEWS = [
   {
     id: "dashboard",
     label: "Dashboard",
+    path: "dashboard",
     src: "/images/03-dashboard.png",
-    alt: "ProjectFlow analytics dashboard — status, priority, workload and 14-day trend",
+    alt: "ProjectFlow main dashboard — status, priority, workload and 14-day trend",
     hotspots: [
       { x: "22%", y: "34%", title: "Workload, live", desc: "See who's overloaded before the sprint breaks." },
       { x: "64%", y: "30%", title: "14-day trend", desc: "Velocity, honest and updating in real time." },
@@ -21,33 +22,26 @@ const VIEWS = [
     ],
   },
   {
-    id: "board",
-    label: "Board",
+    id: "projects",
+    label: "Projects",
+    path: "projects",
     src: "/images/04-board.png",
-    alt: "Kanban board with drag-and-drop columns",
+    alt: "Projects page — project list in the sidebar with the live team board",
     hotspots: [
-      { x: "30%", y: "40%", title: "Drag & drop", desc: "Move cards with a flick. WIP enforced." },
-      { x: "62%", y: "52%", title: "Inline create", desc: "New task without leaving the flow." },
+      { x: "8%", y: "44%", title: "Projects list", desc: "Website Redesign, Platform API and more — one click away." },
+      { x: "45%", y: "35%", title: "Live board", desc: "Drag cards across columns. WIP limits enforced." },
+      { x: "80%", y: "12%", title: "Board / Backlog / Sprints", desc: "Switch project views without losing context." },
     ],
   },
   {
-    id: "sprint",
-    label: "Sprint",
+    id: "project",
+    label: "Project",
+    path: "projects/website-redesign",
     src: "/images/09-sprint-detail.png",
-    alt: "Sprint detail page with burndown chart",
+    alt: "Single project drill-down — Sprint 1 Platform Launch inside Website Redesign",
     hotspots: [
-      { x: "58%", y: "42%", title: "Burndown", desc: "Ideal vs actual. No Friday number-pushing." },
-      { x: "26%", y: "30%", title: "Commitment", desc: "Points locked, scope visible." },
-    ],
-  },
-  {
-    id: "backlog",
-    label: "Backlog",
-    src: "/images/07-backlog.png",
-    alt: "Project backlog with planned sprints",
-    hotspots: [
-      { x: "36%", y: "46%", title: "Unscheduled queue", desc: "Prioritise, estimate, pull when ready." },
-      { x: "68%", y: "36%", title: "Sprint planner", desc: "Drag into the next cycle in seconds." },
+      { x: "30%", y: "14%", title: "Single project scope", desc: "Breadcrumbed to Website Redesign — nothing leaks across projects." },
+      { x: "55%", y: "38%", title: "Sprint health", desc: "Tasks, story points and completion at a glance." },
     ],
   },
 ];
