@@ -330,7 +330,7 @@ export function LandingHero() {
                   <i className="size-2.5 rounded-full bg-white" />
                 </span>
                 <span className="mx-auto hidden w-full max-w-xs truncate rounded-full border px-3 py-1 text-center font-mono text-[10.5px] sm:block" style={{ borderColor: LINE_SOFT, color: FAINT }}>
-                  projectflow.app / {view.label.toLowerCase()}
+                  projectflow.app / {view.path}
                 </span>
                 <span className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10.5px] font-medium" style={{ borderColor: LINE_SOFT, color: "#fff" }}>
                   <span className="size-1.5 animate-pulse rounded-full bg-white" /> Live · {view.label}
