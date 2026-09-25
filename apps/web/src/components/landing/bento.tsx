@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Activity, BarChart3, CalendarClock, MessageSquare, Zap } from "lucide-react";
 import { gsap, initGsap } from "./motion";
-import { FAINT, LINE, LINE_SOFT, MUTED, PANEL, PANEL_2, TEXT } from "./tokens";
+import { ACCENT, ACCENT_SOFT, FAINT, INK, LINE, LINE_SOFT, MUTED, ON_ACCENT, PANEL, PANEL_2, TEXT } from "./tokens";
 
 export function LandingBento() {
   const root = useRef<HTMLElement>(null);
@@ -50,13 +50,13 @@ export function LandingBento() {
   }, []);
 
   return (
-    <section ref={root} id="features" className="relative py-24 lg:py-32" style={{ background: "#000000" }}>
+    <section ref={root} id="features" className="relative py-24 lg:py-32" style={{ background: INK }}>
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <div className="mb-14 max-w-2xl">
           <h2 className="text-[clamp(1.9rem,3.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.02em]" style={{ color: TEXT }}>
             The whole lifecycle,
             <br />
-            <span className="inline-block bg-white px-2 text-black">one surface.</span>
+            <span className="inline-block bg-[var(--ld-accent)] px-2 text-[var(--ld-on-accent)]">one surface.</span>
           </h2>
           <p className="mt-4 max-w-md text-[15px] leading-relaxed" style={{ color: FAINT }}>
             Kanban, sprints, backlogs, comments and analytics — designed to feel like one
@@ -73,7 +73,7 @@ export function LandingBento() {
             <div aria-hidden className="pointer-events-none absolute -right-20 -top-24 size-64 rounded-full blur-3xl" style={{ background: "rgba(255,255,255,0.04)" }} />
             <div className="relative flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <span className="flex size-6 items-center justify-center rounded-md text-[9px] font-bold" style={{ background: "#ffffff", color: "#000000" }}>
+                <span className="flex size-6 items-center justify-center rounded-md text-[9px] font-bold" style={{ background: ACCENT, color: ON_ACCENT }}>
                   WEB
                 </span>
                 <span className="text-[13px] font-semibold" style={{ color: TEXT }}>
@@ -82,14 +82,14 @@ export function LandingBento() {
               </div>
               <span
                 className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium"
-                style={{ borderColor: LINE_SOFT, color: "#ffffff" }}
+                style={{ borderColor: LINE_SOFT, color: TEXT }}
               >
-                <span className="size-1.5 rounded-full bg-white" /> Active
+                <span className="size-1.5 rounded-full bg-[var(--ld-accent)]" /> Active
               </span>
             </div>
             <div className="mt-4 flex flex-col gap-2.5 sm:flex-row">
               {COLS.map((col) => (
-                <div key={col.name} className="flex-1 rounded-xl p-2" style={{ background: "rgba(255,255,255,0.03)", border: `1px solid ${LINE_SOFT}` }}>
+                <div key={col.name} className="flex-1 rounded-xl p-2" style={{ background: ACCENT_SOFT, border: `1px solid ${LINE_SOFT}` }}>
                   <div className="mb-2 flex items-center gap-1.5 px-1">
                     <span className="size-1.5 rounded-full" style={{ background: col.dot }} />
                     <span className="text-[10px] font-semibold" style={{ color: FAINT }}>
@@ -103,10 +103,10 @@ export function LandingBento() {
                           {t.title}
                         </p>
                         <div className="mt-1.5 flex items-center justify-between">
-                          <span className="rounded px-1 py-0.5 font-mono text-[8px] font-medium uppercase" style={{ color: "#a3a3a3", background: "rgba(255,255,255,0.08)" }}>
+                          <span className="rounded px-1 py-0.5 font-mono text-[8px] font-medium uppercase" style={{ color: MUTED, background: ACCENT_SOFT }}>
                             {t.tag}
                           </span>
-                          <span className="flex size-4 items-center justify-center rounded-full text-[7.5px] font-bold" style={{ background: "#d4d4d4", color: "#000000" }}>
+                          <span className="flex size-4 items-center justify-center rounded-full text-[7.5px] font-bold" style={{ background: ACCENT, color: ON_ACCENT }}>
                             {t.avatar}
                           </span>
                         </div>
@@ -121,13 +121,13 @@ export function LandingBento() {
           {/* B — burndown (2 cols) */}
           <div
             className="bento-cell burndown-box relative overflow-hidden rounded-2xl border p-5 md:col-span-2 md:p-6"
-            style={{ borderColor: LINE, background: "rgba(255,255,255,0.04)" }}
+            style={{ borderColor: LINE, background: ACCENT_SOFT }}
           >
             <div className="relative flex items-center justify-between">
-              <span className="flex size-8 items-center justify-center rounded-lg border" style={{ borderColor: LINE_SOFT, color: "#ffffff" }}>
+              <span className="flex size-8 items-center justify-center rounded-lg border" style={{ borderColor: LINE_SOFT, color: TEXT }}>
                 <BarChart3 className="size-4" />
               </span>
-              <span className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium" style={{ borderColor: LINE_SOFT, color: "#a3a3a3" }}>
+              <span className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium" style={{ borderColor: LINE_SOFT, color: MUTED }}>
                 <CalendarClock className="size-3" /> Burndown
               </span>
             </div>
@@ -147,11 +147,11 @@ export function LandingBento() {
             style={{ borderColor: LINE, background: PANEL }}
           >
             <div className="flex items-center gap-2 text-[12px] font-semibold" style={{ color: TEXT }}>
-              <Activity className="size-4" style={{ color: "#ffffff" }} /> Live activity
+              <Activity className="size-4" style={{ color: TEXT }} /> Live activity
               <span className="ml-auto flex items-center gap-1.5 text-[11px] font-medium" style={{ color: FAINT }}>
                 <span className="relative flex size-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-70 bg-white" />
-                  <span className="relative inline-flex size-1.5 rounded-full bg-white" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-70 bg-[var(--ld-accent)]" />
+                  <span className="relative inline-flex size-1.5 rounded-full bg-[var(--ld-accent)]" />
                 </span>
                 connected
               </span>
@@ -159,7 +159,7 @@ export function LandingBento() {
             <div className="mt-5 space-y-3.5">
               {ACTIVITY.map((a) => (
                 <div key={a.text} className="flex items-center gap-3">
-                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full text-[9px] font-bold" style={{ background: "#e8e8e8", color: "#000000" }}>
+                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full text-[9px] font-bold" style={{ background: ACCENT, color: ON_ACCENT }}>
                     {a.initials}
                   </span>
                   <p className="min-w-0 flex-1 truncate text-[12.5px]" style={{ color: a.important ? TEXT : MUTED }}>
@@ -179,16 +179,16 @@ export function LandingBento() {
             style={{ borderColor: LINE, background: PANEL }}
           >
             <div className="flex items-center gap-2 text-[12px] font-semibold" style={{ color: TEXT }}>
-              <Zap className="size-4" style={{ color: "#ffffff" }} /> Workload
+              <Zap className="size-4" style={{ color: TEXT }} /> Workload
             </div>
             <div className="workload-track mt-5 flex flex-1 flex-col justify-center gap-4">
               {WORKLOAD.map((w, i) => (
                 <div key={w.name} className="flex items-center gap-3">
-                  <span className="flex size-5 shrink-0 items-center justify-center rounded-full text-[8px] font-bold" style={{ background: "#e8e8e8", color: "#000000" }}>
+                  <span className="flex size-5 shrink-0 items-center justify-center rounded-full text-[8px] font-bold" style={{ background: ACCENT, color: ON_ACCENT }}>
                     {w.initials}
                   </span>
-                  <div className="h-1.5 flex-1 overflow-hidden rounded-full" style={{ background: "rgba(255,255,255,0.08)" }}>
-                    <div className="workload-bar h-full rounded-full bg-white" style={{ opacity: i % 2 === 0 ? 1 : 0.6 }} />
+                  <div className="h-1.5 flex-1 overflow-hidden rounded-full" style={{ background: ACCENT_SOFT }}>
+                    <div className="workload-bar h-full rounded-full bg-[var(--ld-accent)]" style={{ opacity: i % 2 === 0 ? 1 : 0.6 }} />
                   </div>
                   <span className="w-6 text-right font-mono text-[11px]" style={{ color: FAINT }}>
                     {w.count}
@@ -201,10 +201,10 @@ export function LandingBento() {
           {/* E — words (2 cols) */}
           <div
             className="bento-cell relative flex flex-col justify-center overflow-hidden rounded-2xl border p-5 md:col-span-2 md:p-6"
-            style={{ borderColor: LINE, background: "#0a0a0a" }}
+            style={{ borderColor: LINE, background: PANEL }}
           >
             <div className="relative">
-              <MessageSquare className="size-4" style={{ color: "#ffffff" }} />
+              <MessageSquare className="size-4" style={{ color: TEXT }} />
               <p className="mt-3 text-[17px] font-semibold leading-snug tracking-tight" style={{ color: TEXT }}>
                 Every decision leaves a trail.
               </p>
