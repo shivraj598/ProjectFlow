@@ -8,7 +8,7 @@ import type { OrgSummary } from "@/lib/types";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
 import { AuthShell, Field } from "@/components/auth-shell";
-import { TEXT } from "@/components/landing/tokens";
+import { ACCENT, ON_ACCENT, TEXT } from "@/components/landing/tokens";
 
 export function RegisterPage() {
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ export function RegisterPage() {
           type="submit"
           disabled={busy}
           className="flex h-10 w-full items-center justify-center gap-1.5 text-[14px] font-bold transition-all hover:opacity-90 active:scale-[0.99] disabled:opacity-50"
-          style={{ background: "#ffffff", color: "#000000" }}
+          style={{ background: ACCENT, color: ON_ACCENT }}
         >
           {busy ? <Loader2 className="size-4 animate-spin" /> : <>Create account <ArrowRight className="size-4" /></>}
         </button>
