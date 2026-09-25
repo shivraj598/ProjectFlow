@@ -115,7 +115,7 @@ export function LandingNav() {
               aria-hidden
             />
           </span>
-          <span className="hidden flex-col leading-none xs:flex sm:flex">
+          <span className="hidden flex-col leading-none min-[400px]:flex">
             <span className="text-[14px] font-extrabold tracking-[-0.02em]" style={{ color: TEXT }}>
               ProjectFlow
             </span>
