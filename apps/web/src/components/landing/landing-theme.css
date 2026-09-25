@@ -1,0 +1,66 @@
+/* Landing black ↔ white mode. Dark is default; the nav toggle flips
+   `html.landing-light`. All landing components consume these variables
+   (via tokens.ts or var() Tailwind arbitrary values), so the whole
+   landing page re-themes without re-rendering. Product screenshots stay
+   dark in both modes — intentional, like a dark-UI product card. */
+
+.landing-root {
+  --ld-ink: #000000;
+  --ld-panel: #0a0a0a;
+  --ld-panel-2: #111111;
+  --ld-panel-3: #1a1a1a;
+  --ld-line: rgba(255, 255, 255, 0.14);
+  --ld-line-soft: rgba(255, 255, 255, 0.07);
+  --ld-text: #ffffff;
+  --ld-muted: #a3a3a3;
+  --ld-faint: #666666;
+  --ld-accent: #ffffff;
+  --ld-accent-soft: rgba(255, 255, 255, 0.08);
+  --ld-on-accent: #000000;
+  color-scheme: dark;
+}
+
+html.landing-light .landing-root {
+  --ld-ink: #fafaf9;
+  --ld-panel: #ffffff;
+  --ld-panel-2: #f4f4f5;
+  --ld-panel-3: #e7e7ea;
+  --ld-line: rgba(0, 0, 0, 0.12);
+  --ld-line-soft: rgba(0, 0, 0, 0.07);
+  --ld-text: #09090b;
+  --ld-muted: #52525b;
+  --ld-faint: #a1a1aa;
+  --ld-accent: #09090b;
+  --ld-accent-soft: rgba(0, 0, 0, 0.06);
+  --ld-on-accent: #fafafa;
+  color-scheme: light;
+}
+
+/* smooth painted transition when the mode flips */
+.landing-root,
+.landing-root section,
+.landing-root header,
+.landing-root footer,
+.landing-root div,
+.landing-root figure,
+.landing-root nav,
+.landing-root button,
+.landing-root a {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 0.35s;
+  transition-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-root,
+  .landing-root section,
+  .landing-root header,
+  .landing-root footer,
+  .landing-root div,
+  .landing-root figure,
+  .landing-root nav,
+  .landing-root button,
+  .landing-root a {
+    transition: none;
+  }
+}
