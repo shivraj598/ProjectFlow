@@ -80,7 +80,7 @@ export function LandingTestimonials() {
       ref={root}
       id="customers"
       className="relative overflow-hidden border-t py-16 lg:py-24"
-      style={{ borderColor: LINE, background: "#000000" }}
+      style={{ borderColor: LINE, background: INK }}
     >
       {/* faint radiance */}
       <div
