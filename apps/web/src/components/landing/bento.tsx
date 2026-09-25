@@ -223,7 +223,7 @@ export function LandingBento() {
 const COLS = [
   {
     name: "Backlog",
-    dot: "#808080",
+    dot: FAINT,
     tasks: [
       { title: "Review onboarding copy", tag: "medium", avatar: "AC" },
       { title: "Finalize sprint scope", tag: "bug", avatar: "MO" },
@@ -231,7 +231,7 @@ const COLS = [
   },
   {
     name: "In progress",
-    dot: "#ffffff",
+    dot: ACCENT,
     tasks: [
       { title: "Dark mode flicker fix", tag: "urgent", avatar: "LM" },
       { title: "Mobile notifications", tag: "3 pts", avatar: "IR" },
@@ -239,7 +239,7 @@ const COLS = [
   },
   {
     name: "Done",
-    dot: "#ffffff",
+    dot: ACCENT,
     tasks: [
       { title: "Setup analytics events", tag: "done", avatar: "RP" },
     ],
@@ -264,11 +264,11 @@ function BurndownChart() {
   const actual = "0,96 36,74 72,58 110,38 148,40 178,18";
   return (
     <svg viewBox="0 0 200 110" className="mt-3 w-full" role="img" aria-label="Sprint burndown trending on track">
-      <line x1="0" y1="104" x2="200" y2="4" stroke="#808080" strokeOpacity="0.3" strokeDasharray="3 5" />
-      <polyline points={ideal} fill="none" stroke="#808080" strokeOpacity="0.4" strokeWidth="1.5" />
-      <polyline points={actual} fill="none" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="320" className="draw-line" />
-      <circle cx="178" cy="18" r="3.5" fill="#ffffff" />
-      <circle cx="0" cy="104" r="3" fill="#808080" fillOpacity="0.5" />
+      <line x1="0" y1="104" x2="200" y2="4" stroke="var(--ld-faint)" strokeOpacity="0.5" strokeDasharray="3 5" />
+      <polyline points={ideal} fill="none" stroke="var(--ld-faint)" strokeOpacity="0.6" strokeWidth="1.5" />
+      <polyline points={actual} fill="none" stroke="var(--ld-accent)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="320" className="draw-line" />
+      <circle cx="178" cy="18" r="3.5" fill="var(--ld-accent)" />
+      <circle cx="0" cy="104" r="3" fill="var(--ld-faint)" fillOpacity="0.6" />
     </svg>
   );
 }
