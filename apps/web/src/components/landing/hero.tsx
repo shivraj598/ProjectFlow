@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { ArrowRight, Check, MousePointer2, Play, Sparkles, Star } from "lucide-react";
 import { gsap, initGsap } from "./motion";
-import { FAINT, INK, LINE, LINE_SOFT, MUTED, TEXT } from "./tokens";
+import { ACCENT, FAINT, INK, LINE, LINE_SOFT, MUTED, ON_ACCENT, TEXT } from "./tokens";
 
 /* ------------------------------------------------------------------ */
 /* Hero — modern centered + interactive dashboard covering bottom half */
@@ -190,7 +190,7 @@ export function LandingHero() {
       <div
         aria-hidden
         className="hero-ghost pointer-events-none absolute left-1/2 top-[5%] -translate-x-1/2 select-none text-[20vw] font-extrabold leading-none tracking-[-0.05em] opacity-[0.035] will-change-transform"
-        style={{ WebkitTextStroke: "1px #fff", color: "transparent", whiteSpace: "nowrap" }}
+        style={{ WebkitTextStroke: "1px var(--ld-accent)", color: "transparent", whiteSpace: "nowrap" }}
       >
         FLOW
       </div>
@@ -200,23 +200,23 @@ export function LandingHero() {
         {/* side rails — desktop editorial */}
         <span aria-hidden className="absolute left-0 top-1/2 hidden -translate-y-1/2 rotate-180 items-center gap-3 [writing-mode:vertical-rl] xl:flex">
           <span className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: FAINT }}>Scroll to explore</span>
-          <span className="mx-auto inline-block h-10 w-px bg-white/25" />
+          <span className="mx-auto inline-block h-10 w-px bg-[var(--ld-faint)]" />
         </span>
         <span aria-hidden className="absolute right-0 top-1/2 hidden -translate-y-1/2 items-center gap-3 [writing-mode:vertical-rl] xl:flex">
-          <span className="mx-auto inline-block h-10 w-px bg-white/25" />
+          <span className="mx-auto inline-block h-10 w-px bg-[var(--ld-faint)]" />
           <span className="font-mono text-[10px] uppercase tracking-[0.3em]" style={{ color: FAINT }}>PF — 01 / Realtime</span>
         </span>
 
         <div className="hero-kicker mb-7 flex items-center justify-center gap-3">
           <span className="group flex items-center gap-2.5 rounded-full border py-1.5 pl-3.5 pr-2 backdrop-blur-md" style={{ borderColor: LINE, background: "rgba(255,255,255,0.04)" }}>
             <span className="relative flex size-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-70" />
-              <span className="relative inline-flex size-2 rounded-full bg-white" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--ld-accent)] opacity-70" />
+              <span className="relative inline-flex size-2 rounded-full bg-[var(--ld-accent)]" />
             </span>
             <span className="text-[12px] font-medium" style={{ color: MUTED }}>
               Real-time project workspace
             </span>
-            <span className="flex items-center gap-1 rounded-full bg-white px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.08em] text-black transition-transform group-hover:scale-105">
+            <span className="flex items-center gap-1 rounded-full bg-[var(--ld-accent)] px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.08em] text-[var(--ld-on-accent)] transition-transform group-hover:scale-105">
               v2.0 <ArrowRight className="size-3" />
             </span>
           </span>
@@ -236,7 +236,7 @@ export function LandingHero() {
                 fontFamily: "Georgia, 'Times New Roman', serif",
                 fontWeight: 500,
                 letterSpacing: "-0.02em",
-                background: "linear-gradient(180deg, #ffffff 30%, #8c8c8c 100%)",
+                background: "linear-gradient(180deg, var(--ld-text) 30%, var(--ld-faint) 100%)",
                 WebkitBackgroundClip: "text",
                 backgroundClip: "text",
                 color: "transparent",
@@ -267,7 +267,7 @@ export function LandingHero() {
           >
             <span aria-hidden className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
             Start free
-            <span className="flex size-9 items-center justify-center rounded-full bg-black text-white transition-transform duration-300 group-hover:rotate-[-35deg]">
+            <span className="flex size-9 items-center justify-center rounded-full bg-[var(--ld-on-accent)] text-[var(--ld-accent)] transition-transform duration-300 group-hover:rotate-[-35deg]">
               <ArrowRight className="size-4" />
             </span>
           </Link>
@@ -277,10 +277,10 @@ export function LandingHero() {
               e.preventDefault();
               document.getElementById("showcase")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="group inline-flex items-center gap-3 rounded-full border py-2 pl-2 pr-7 text-[14px] font-semibold backdrop-blur-md transition-colors hover:bg-white/10"
+            className="group inline-flex items-center gap-3 rounded-full border py-2 pl-2 pr-7 text-[14px] font-semibold backdrop-blur-md transition-colors hover:bg-[var(--ld-accent-soft)]"
             style={{ borderColor: LINE, color: TEXT, background: "rgba(255,255,255,0.02)" }}
           >
-            <span className="flex size-9 items-center justify-center rounded-full border transition-colors duration-300 group-hover:bg-white group-hover:text-black" style={{ borderColor: LINE }}>
+            <span className="flex size-9 items-center justify-center rounded-full border transition-colors duration-300 group-hover:bg-[var(--ld-accent)] group-hover:text-[var(--ld-on-accent)]" style={{ borderColor: LINE }}>
               <Play className="size-3.5 fill-current" />
             </span>
             Watch it move
@@ -294,18 +294,18 @@ export function LandingHero() {
         <div className="hero-proof mt-7 flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
           <div className="flex -space-x-2">
             {["AC", "MO", "LM", "IR"].map((a, i) => (
-              <span key={a} className="flex size-7 items-center justify-center rounded-full text-[9px] font-bold ring-2 ring-black" style={{ background: i === 0 ? "#fff" : "rgba(255,255,255,0.12)", color: i === 0 ? "#000" : "#fff", border: "1px solid rgba(255,255,255,0.25)" }}>
+              <span key={a} className="flex size-7 items-center justify-center rounded-full text-[9px] font-bold ring-2 ring-[var(--ld-ink)]" style={{ background: i === 0 ? ACCENT : "color-mix(in srgb, var(--ld-accent) 12%, transparent)", color: i === 0 ? ON_ACCENT : TEXT, border: `1px solid ${LINE}` }}>
                 {a}
               </span>
             ))}
-            <span className="flex size-7 items-center justify-center rounded-full bg-white text-[8px] font-bold text-black ring-2 ring-black">
+            <span className="flex size-7 items-center justify-center rounded-full bg-[var(--ld-accent)] text-[8px] font-bold text-[var(--ld-on-accent)] ring-2 ring-[var(--ld-ink)]">
               2k+
             </span>
           </div>
-          <span className="h-4 w-px bg-white/15" aria-hidden />
+          <span className="h-4 w-px bg-[var(--ld-line)]" aria-hidden />
           <span className="flex items-center gap-1.5">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="size-3.5 fill-white text-white" />
+              <Star key={i} className="size-3.5 fill-[var(--ld-accent)] text-[var(--ld-accent)]" />
             ))}
           </span>
           <span className="text-[12.5px]" style={{ color: MUTED }}>
@@ -330,16 +330,16 @@ export function LandingHero() {
               onClick={() => setActive(i)}
               className="flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-[12.5px] font-medium backdrop-blur-md transition-all duration-300"
               style={{
-                borderColor: i === active ? "#fff" : LINE,
-                background: i === active ? "#fff" : "rgba(255,255,255,0.03)",
-                color: i === active ? "#000" : MUTED,
+                borderColor: i === active ? ACCENT : LINE,
+                background: i === active ? ACCENT : "color-mix(in srgb, var(--ld-accent) 4%, transparent)",
+                color: i === active ? ON_ACCENT : MUTED,
               }}
             >
               <span className="font-mono text-[10px]" style={{ opacity: 0.7 }}>
                 0{i + 1}
               </span>
               {v.label}
-              {i === active && <span className="size-1.5 animate-pulse rounded-full bg-black" />}
+              {i === active && <span className="size-1.5 animate-pulse rounded-full bg-[var(--ld-on-accent)]" />}
             </button>
           ))}
         </div>
@@ -361,17 +361,17 @@ export function LandingHero() {
             <div className="relative overflow-hidden rounded-t-2xl border border-b-0 shadow-[0_60px_180px_rgba(0,0,0,0.9)]" style={{ borderColor: LINE, background: "#060606" }}>
               {/* chrome */}
               <div className="flex items-center gap-3 border-b px-4 py-3" style={{ borderColor: LINE_SOFT, background: "rgba(10,10,10,0.95)" }}>
-                <span className="flex gap-1.5">
-                  <i className="size-2.5 rounded-full bg-white/20" />
-                  <i className="size-2.5 rounded-full bg-white/20" />
-                  <i className="size-2.5 rounded-full bg-white" />
-                </span>
-                <span className="mx-auto hidden w-full max-w-xs truncate rounded-full border px-3 py-1 text-center font-mono text-[10.5px] sm:block" style={{ borderColor: LINE_SOFT, color: FAINT }}>
-                  projectflow.app / {view.path}
-                </span>
-                <span className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10.5px] font-medium" style={{ borderColor: LINE_SOFT, color: "#fff" }}>
-                  <span className="size-1.5 animate-pulse rounded-full bg-white" /> Live · {view.label}
-                </span>
+              <span className="flex gap-1.5">
+                <i className="size-2.5 rounded-full bg-[var(--ld-faint)]" />
+                <i className="size-2.5 rounded-full bg-[var(--ld-faint)]" />
+                <i className="size-2.5 rounded-full bg-[var(--ld-accent)]" />
+              </span>
+              <span className="mx-auto hidden w-full max-w-xs truncate rounded-full border px-3 py-1 text-center font-mono text-[10.5px] sm:block" style={{ borderColor: LINE_SOFT, color: FAINT }}>
+                projectflow.app / {view.path}
+              </span>
+              <span className="flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10.5px] font-medium" style={{ borderColor: LINE_SOFT, color: TEXT }}>
+                <span className="size-1.5 animate-pulse rounded-full bg-[var(--ld-accent)]" /> Live · {view.label}
+              </span>
               </div>
 
               {/* interactive screenshot */}
@@ -447,11 +447,11 @@ function StripCell({ label, value, live, scroll, hideOnMobile }: { label: string
         {label}
       </span>
       <span className="flex items-center gap-2 text-[12px] font-medium" style={{ color: TEXT }}>
-        {live && <span className="size-1.5 animate-pulse rounded-full bg-white" />}
+        {live && <span className="size-1.5 animate-pulse rounded-full bg-[var(--ld-accent)]" />}
         {value}
         {scroll && (
           <span className="hidden items-center gap-1.5 pl-2 font-mono text-[10px] uppercase tracking-[0.16em] sm:flex" style={{ color: FAINT }}>
-            <span className="inline-block h-3 w-px animate-pulse bg-white" />
+            <span className="inline-block h-3 w-px animate-pulse bg-[var(--ld-accent)]" />
             Scroll
           </span>
         )}
@@ -464,20 +464,20 @@ function Chip({ title, value, icon, fine, accent }: { title: string; value: stri
   return (
     <div
       className="flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5 shadow-[0_16px_50px_rgba(0,0,0,0.6)] backdrop-blur-md"
-      style={{ borderColor: accent ? "#ffffff" : LINE, background: "rgba(8,8,8,0.92)" }}
+      style={{ borderColor: accent ? ACCENT : LINE, background: accent ? ACCENT : "color-mix(in srgb, var(--ld-accent) 7%, transparent)" }}
     >
       <span
         className="flex size-7 shrink-0 items-center justify-center rounded-lg"
-        style={{ background: accent ? "#ffffff" : "rgba(255,255,255,0.08)", color: accent ? "#000000" : "#ffffff" }}
+        style={{ background: accent ? ON_ACCENT : "color-mix(in srgb, var(--ld-accent) 10%, transparent)", color: accent ? ACCENT : TEXT }}
       >
         {icon}
       </span>
       <div className="text-left">
-        <p className="text-[11px] font-semibold" style={{ color: "#ffffff" }}>
+        <p className="text-[11px] font-semibold" style={{ color: accent ? ON_ACCENT : TEXT }}>
           {title}
         </p>
-        <p className="flex items-center gap-1.5 text-[10.5px]" style={{ color: accent ? "#ffffff" : MUTED }}>
-          <span className="size-1 rounded-full bg-white" />
+        <p className="flex items-center gap-1.5 text-[10.5px]" style={{ color: accent ? ON_ACCENT : MUTED }}>
+          <span className="size-1 rounded-full bg-[var(--ld-accent)]" />
           {value}
           {fine && <span style={{ color: FAINT }}>· {fine}</span>}
         </p>
