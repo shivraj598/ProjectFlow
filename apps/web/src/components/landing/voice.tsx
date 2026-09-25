@@ -44,7 +44,7 @@ export function LandingVoice() {
       />
       <div className="relative mx-auto w-full max-w-4xl px-6">
         <p className="mb-8 flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.2em]" style={{ color: FAINT }}>
-          <span className="h-px w-8 bg-white" /> The thesis
+          <span className="h-px w-8 bg-[var(--ld-accent)]" /> The thesis
         </p>
         <p
           className="text-[clamp(1.4rem,2.7vw,2.2rem)] font-medium leading-[1.5] tracking-[-0.01em]"
