@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, CalendarCheck2, Kanban, Layers, Scale } from "lucide-react";
 import { gsap, initGsap } from "./motion";
-import { ACCENT, ACCENT_SOFT, FAINT, LINE, LINE_SOFT, MUTED, TEXT } from "./tokens";
+import { ACCENT, ACCENT_SOFT, FAINT, INK, LINE, LINE_SOFT, MUTED, TEXT } from "./tokens";
 
 const CAPABILITIES = [
   {
