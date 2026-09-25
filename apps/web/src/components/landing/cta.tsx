@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import { gsap, initGsap } from "./motion";
-import { INK, LINE, MUTED, TEXT } from "./tokens";
+import { ACCENT, INK, LINE, MUTED, ON_ACCENT, TEXT } from "./tokens";
 
 export function LandingCta() {
   const root = useRef<HTMLElement>(null);
@@ -55,14 +55,14 @@ export function LandingCta() {
           <Link
             to="/register"
             className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold transition-all hover:opacity-90 active:scale-[0.98]"
-            style={{ background: "#ffffff", color: "#000000" }}
+            style={{ background: ACCENT, color: ON_ACCENT }}
           >
             Start free
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
           <Link
             to="/login"
-            className="rounded-full border px-7 py-3.5 text-[14px] font-semibold transition-colors hover:bg-white/10"
+            className="rounded-full border px-7 py-3.5 text-[14px] font-semibold transition-colors hover:bg-[var(--ld-accent-soft)]"
             style={{ borderColor: LINE, color: TEXT }}
           >
             Sign in
